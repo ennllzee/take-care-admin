@@ -12,6 +12,9 @@ import GoogleLogin from "react-google-login";
 import Alert from "../Alert/Alert";
 import { useGoogleLogout } from "react-google-login";
 
+import { gql, useQuery } from '@apollo/client';
+import useAdminApi from "../../hooks/adminhooks"
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -38,14 +41,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const { signOut, loaded } = useGoogleLogout({
-  clientId : "907374215732-b5mgla300uqrmlvkq4gstaq0de9osef7.apps.googleusercontent.com"
-})
 
 function LoginPage() {
+  const { signOut, loaded } = useGoogleLogout({
+    clientId : "907374215732-b5mgla300uqrmlvkq4gstaq0de9osef7.apps.googleusercontent.com"
+  })
+  
   const classes = useStyles();
   
-
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
@@ -57,12 +60,14 @@ function LoginPage() {
   const [res, setRes] = useState<any>();
   const [token, setToken] = useState<string>();
 
-  // const { loginPatient } = usePatientApi();
+  const { loginAdmin } = useAdminApi();
 
-  // const { loading, error, data } = useQuery(loginPatient, {
-  //   variables: { loginPatientToken: token },
-  //   fetchPolicy: "network-only"
-  // });
+  const { loading, error, data } = useQuery(loginAdmin, {
+    variables: { loginAdminToken: token },
+    fetchPolicy: "network-only"
+  });
+
+  console.log(data);
 
   // useEffect(() => {
   //   if (!loading && res !== undefined && token !== undefined) {
