@@ -1,11 +1,11 @@
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
 import { Route, Switch } from "react-router-dom";
-import AppointmentPage from "../Appointment/AppointmentPage";
-import CustomerRequestPage from "../CustomerRequest/CustomerRequestPage";
-import CustomerServicePage from "../Report/ReportPage";
-import HistoryPage from "../History/HistoryPage";
+import ReportPage from "../Report/ReportPage";
 import HospitalInformationPage from "../HospitalInformation/HospitalInformationPage";
-import ProfilePage from "../Profile/ProfilePage";
+import CustomerDataPage from "../CustomerData/CustomerDataPage";
+import GuideDataPage from "../GuideData/GuideDataPage";
+import GuideVerifyPage from "../GuideVerify/GuideVerify";
+import DashboardPage from "../Dashboard/DashboardPage";
 
 const useStyles = makeStyles((theme: Theme) => 
   createStyles({
@@ -18,17 +18,16 @@ const useStyles = makeStyles((theme: Theme) =>
 function Home() {
 
   const classes = useStyles()
-  const accessToken = localStorage.getItem('accessToken')
 
   return (
     <div className={classes.root}>
         <Switch>
-          <Route exact path={`/profile&=${accessToken}`} component={ProfilePage} />
-          <Route path={`/appointment&=${accessToken}`} component={AppointmentPage} />
-          <Route path={`/history&=${accessToken}`} component={HistoryPage} />
-          <Route path={`/customer&request&=${accessToken}`} component={CustomerRequestPage} />
-          <Route path={`/hospital&information&=${accessToken}`} component={HospitalInformationPage} />
-          <Route path={`/customer&service&=${accessToken}`} component={CustomerServicePage} />
+          <Route exact path={`/dashboard`} component={DashboardPage} />
+          <Route path={`/guide&verify`} component={GuideVerifyPage} />
+          <Route path={`/guide&data`} component={GuideDataPage} />
+          <Route path={`/customer&data`} component={CustomerDataPage} />
+          <Route path={`/hospital&information`} component={HospitalInformationPage} />
+          <Route path={`/report`} component={ReportPage} />
         </Switch>
     </div>
   );
