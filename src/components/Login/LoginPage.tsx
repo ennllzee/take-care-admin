@@ -43,9 +43,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 function LoginPage() {
-  const { signOut, loaded } = useGoogleLogout({
-    clientId : "907374215732-b5mgla300uqrmlvkq4gstaq0de9osef7.apps.googleusercontent.com"
-  })
   
   const classes = useStyles();
   
@@ -67,36 +64,33 @@ function LoginPage() {
     fetchPolicy: "network-only"
   });
 
-  console.log(data);
-
-  // useEffect(() => {
-  //   if (!loading && res !== undefined && token !== undefined) {
-  //     console.log(data.loginPatient);
-  //     if (data.loginPatient !== null) {
-  //       localStorage.setItem("_id", data.loginPatient._id);
-  //       localStorage.setItem("role", data.loginPatient.Role);
-  //       localStorage.setItem("accessToken", res.accessToken);
-  //       history.push(`/profile&=${localStorage.getItem("accessToken")}`);
-  //     } else {
-  //       localStorage.setItem("token", res.tokenId);
-  //       localStorage.setItem("role", "customer");
-  //       localStorage.setItem("gmail", res.profileObj.email);
-  //       history.push("/register");
-  //     }
-  //   }
-  // }, [loading]);
+  useEffect(() => {
+    if (!loading && res !== undefined && token !== undefined) {
+      if (data.loginAdmin !== null) {
+        localStorage.setItem("_id", data.loginAdmin._id);
+        localStorage.setItem("accessToken", res.accessToken);
+        history.push(`/dashboard`);
+      } else {
+        setAlert(true)
+      }
+    }
+  }, [loading]);
 
   const [alert, setAlert] = useState<boolean>(false);
+
+  const loginFailed = () => {
+    setAlert(false);
+  };
+
+  const { signOut } = useGoogleLogout({
+    clientId : "907374215732-b5mgla300uqrmlvkq4gstaq0de9osef7.apps.googleusercontent.com",
+    onLogoutSuccess: loginFailed
+  })
 
   const responseGoogle = async (response: any) => {
     console.log(response);
     setRes(response);
     setToken(response.tokenId);
-  };
-
-  const loginFailed = () => {
-    setAlert(false);
-    signOut()
   };
 
   return (
@@ -143,7 +137,7 @@ function LoginPage() {
         </Paper>
       </Grid>
       <Grid item></Grid>
-      <Alert closeAlert={loginFailed} alert={alert} title="ลงชื่อไม่สำเร็จ" text="ไม่พบบัญชีนี้ในระบบ Admin" buttonText="ปิด"/>
+      <Alert closeAlert={signOut} alert={alert} title="ลงชื่อไม่สำเร็จ" text="ไม่พบบัญชีนี้ในระบบ Admin" buttonText="ปิด"/>
     </Grid>
   );
 }
