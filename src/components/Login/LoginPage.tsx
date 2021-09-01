@@ -12,8 +12,8 @@ import GoogleLogin from "react-google-login";
 import Alert from "../Alert/Alert";
 import { useGoogleLogout } from "react-google-login";
 
-import { gql, useQuery } from '@apollo/client';
-import useAdminApi from "../../hooks/adminhooks"
+import { gql, useQuery } from "@apollo/client";
+import useAdminApi from "../../hooks/adminhooks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,11 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-
 function LoginPage() {
-  
   const classes = useStyles();
-  
+
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
@@ -57,21 +55,32 @@ function LoginPage() {
   const [res, setRes] = useState<any>();
   const [token, setToken] = useState<string>();
 
+  const responseGoogle = async (response: any) => {
+    console.log(response);
+    setRes(response);
+    setToken(response.tokenId);
+  };
+
   const { loginAdmin } = useAdminApi();
 
   const { loading, error, data } = useQuery(loginAdmin, {
     variables: { loginAdminToken: token },
-    fetchPolicy: "network-only"
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {
+    console.log(data);
+    console.log(token);
+    console.log(loading);
+    console.log(error?.graphQLErrors[0].message);
+
     if (!loading && res !== undefined && token !== undefined) {
-      if (data.loginAdmin !== null) {
+      if (data) {
         localStorage.setItem("_id", data.loginAdmin._id);
         localStorage.setItem("accessToken", res.accessToken);
         history.push(`/dashboard`);
       } else {
-        setAlert(true)
+        setAlert(true);
       }
     }
   }, [loading]);
@@ -83,15 +92,10 @@ function LoginPage() {
   };
 
   const { signOut } = useGoogleLogout({
-    clientId : "907374215732-b5mgla300uqrmlvkq4gstaq0de9osef7.apps.googleusercontent.com",
-    onLogoutSuccess: loginFailed
-  })
-
-  const responseGoogle = async (response: any) => {
-    console.log(response);
-    setRes(response);
-    setToken(response.tokenId);
-  };
+    clientId:
+      "907374215732-b5mgla300uqrmlvkq4gstaq0de9osef7.apps.googleusercontent.com",
+    onLogoutSuccess: loginFailed,
+  });
 
   return (
     <Grid
@@ -137,7 +141,13 @@ function LoginPage() {
         </Paper>
       </Grid>
       <Grid item></Grid>
-      <Alert closeAlert={signOut} alert={alert} title="ลงชื่อไม่สำเร็จ" text="ไม่พบบัญชีนี้ในระบบ Admin" buttonText="ปิด"/>
+      <Alert
+        closeAlert={signOut}
+        alert={alert}
+        title="ลงชื่อไม่สำเร็จ"
+        text="ไม่พบบัญชีนี้ในระบบ Admin"
+        buttonText="ปิด"
+      />
     </Grid>
   );
 }

@@ -197,7 +197,7 @@ const useAdminApi = () => {
   `;
 
   const loginAdmin = gql`
-    query Query($loginAdminToken: String!) {
+    query Query($loginAdminToken: String) {
       loginAdmin(Token: $loginAdminToken) {
         _id
         FirstName
@@ -222,9 +222,6 @@ const useAdminApi = () => {
           Languages
           Level
         }
-        IdCard
-        FaceWithIdCard
-        GoogleId
         Avatar
         CongenitalDisorders
         Role
