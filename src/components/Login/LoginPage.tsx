@@ -93,7 +93,7 @@ function LoginPage() {
 
   const { signOut } = useGoogleLogout({
     clientId:
-      "907374215732-b5mgla300uqrmlvkq4gstaq0de9osef7.apps.googleusercontent.com",
+      "907374215732-cj2ep14tclbc8aehn9svjkcnfn4ai8cl.apps.googleusercontent.com",
     onLogoutSuccess: loginFailed,
   });
 
@@ -128,7 +128,7 @@ function LoginPage() {
                 className={classes.google}
               >
                 <GoogleLogin
-                  clientId="907374215732-b5mgla300uqrmlvkq4gstaq0de9osef7.apps.googleusercontent.com"
+                  clientId="907374215732-cj2ep14tclbc8aehn9svjkcnfn4ai8cl.apps.googleusercontent.com"
                   buttonText="Sign in with Google"
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}

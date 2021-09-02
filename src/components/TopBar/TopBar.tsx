@@ -60,7 +60,7 @@ function TopBar({ page }: TopBarProps) {
           </Typography>
 
           <GoogleLogout
-            clientId="907374215732-b5mgla300uqrmlvkq4gstaq0de9osef7.apps.googleusercontent.com"
+            clientId="907374215732-cj2ep14tclbc8aehn9svjkcnfn4ai8cl.apps.googleusercontent.com"
             buttonText="Logout"
             render={(renderProps) => (
               <Button
