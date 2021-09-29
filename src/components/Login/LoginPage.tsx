@@ -5,6 +5,7 @@ import {
   Theme,
   Typography,
   Paper,
+  CssBaseline,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { history } from "../../helper/history";
@@ -18,12 +19,13 @@ import useAdminApi from "../../hooks/adminhooks";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      minHeight: "100vh",
-      backgroundColor: "#8FA5E6",
+      // minHeight: "100vh",
+      // backgroundColor: "#8FA5E6",
     },
     paper: {
       background: "white",
       width: "80vw",
+      marginTop: theme.spacing(8),
     },
     login: {
       padding: "5%",
@@ -69,10 +71,6 @@ function LoginPage() {
   });
 
   useEffect(() => {
-    console.log(data);
-    console.log(token);
-    console.log(loading);
-    console.log(error?.graphQLErrors[0].message);
 
     if (!loading && res !== undefined && token !== undefined) {
       if (data) {
@@ -105,6 +103,7 @@ function LoginPage() {
       justify="space-between"
       className={classes.root}
     >
+
       <Grid item></Grid>
 
       <Grid item>
@@ -117,7 +116,7 @@ function LoginPage() {
             className={classes.login}
           >
             <Grid xs={12} md={12} lg={12}>
-              <Typography variant="h4">ลงชื่อเข้าระบบ</Typography>
+              <Typography variant="h4">ลงชื่อเข้าระบบผู้ดูแล (Admin)</Typography>
             </Grid>
             <Grid xs={12} md={12} lg={12} className={classes.form}>
               <Grid
