@@ -35,7 +35,7 @@ function NavBar({ open, classes, handleDrawerOpen }: IOpen) {
             <MenuIcon />
           </IconButton>
           {/* path jpg */}
-          <Avatar src="./logo_png.png" className={clsx(classes.large, open && classes.hide)} />
+          <Avatar src="./logo.png" className={clsx(classes.large, open && classes.hide)} />
           <Typography variant="h6" noWrap >
           {/* Take Care */}
           </Typography>
