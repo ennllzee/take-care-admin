@@ -36,8 +36,8 @@ function NavBar({ open, classes, handleDrawerOpen }: IOpen) {
           </IconButton>
           {/* path jpg */}
           <Avatar src="./logo.png" className={clsx(classes.large, open && classes.hide)} />
-          <Typography variant="h6" noWrap >
-          {/* Take Care */}
+          <Typography variant="h4" noWrap >
+            Take Care For Admin
           </Typography>
         </Toolbar>
       </AppBar>
