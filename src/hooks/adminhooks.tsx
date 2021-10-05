@@ -16,25 +16,35 @@ const useAdminApi = () => {
         Education {
           Degree
           Acadamy
-          Certificate
+          Certificate {
+            filename
+            mimetype
+            data
+          }
         }
         WorkExp {
           JobTitle
           WorkPlace
-          JobPosition
         }
         LangSkill {
-          Languages
+          Language
           Level
         }
         IdCard
-        FaceWithIdCard
         GoogleId
-        Avatar
-        CongenitalDisorders
         Role
         CreatedAt
         UpdatedAt
+        FaceWithIdCard {
+          filename
+          mimetype
+          data
+        }
+        Avatar {
+          filename
+          mimetype
+          data
+        }
       }
     }
   `;
