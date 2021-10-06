@@ -1,4 +1,4 @@
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql } from "@apollo/client";
 
 const useAdminApi = () => {
   const getSingleAdmin = gql`
