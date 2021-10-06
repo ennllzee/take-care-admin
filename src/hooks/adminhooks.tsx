@@ -251,6 +251,61 @@ const useAdminApi = () => {
     }
   `;
 
+  const GET_NONVALIDATED = gql`
+    query Query {
+      getNonVerifyGuide {
+        _id
+        FirstName
+        LastName
+        Gender
+        DOB
+        Address
+        ContactAddress
+        PhoneNumber
+        Email
+        Gmail
+        IsVerified
+        Education {
+          Degree
+          Acadamy
+          Certificate {
+            filename
+            mimetype
+            data
+          }
+        }
+        WorkExp {
+          JobTitle
+          WorkPlace
+        }
+        LangSkill {
+          Language
+          Level
+        }
+        IdCard
+        FaceWithIdCard {
+          filename
+          mimetype
+          data
+        }
+        VerifyDate
+        GoogleId
+        Avatar {
+          filename
+          mimetype
+          data
+        }
+        Role
+        Status {
+          Tag
+          Details
+        }
+        CreatedAt
+        UpdatedAt
+      }
+    }
+  `;
+
   return {
     GET_SINGLE_ADMIN,
     SIGNUP_ADMIN,
@@ -258,6 +313,7 @@ const useAdminApi = () => {
     DELETE_ADMIN,
     VALIDATION_GUIDE,
     LOGIN,
+    GET_NONVALIDATED
   };
 };
 
