@@ -63,15 +63,14 @@ function LoginPage() {
     setToken(response.tokenId);
   };
 
-  const { loginAdmin } = useAdminApi();
+  const { LOGIN } = useAdminApi();
 
-  const { loading, error, data } = useQuery(loginAdmin, {
+  const { loading, error, data } = useQuery(LOGIN, {
     variables: { loginAdminToken: token },
     fetchPolicy: "network-only",
   });
 
   useEffect(() => {
-
     if (!loading && res !== undefined && token !== undefined) {
       if (data) {
         localStorage.setItem("_id", data.loginAdmin._id);
@@ -103,7 +102,6 @@ function LoginPage() {
       justify="space-between"
       className={classes.root}
     >
-
       <Grid item></Grid>
 
       <Grid item>
@@ -116,7 +114,9 @@ function LoginPage() {
             className={classes.login}
           >
             <Grid xs={12} md={12} lg={12}>
-              <Typography variant="h4">ลงชื่อเข้าระบบผู้ดูแล (Admin)</Typography>
+              <Typography variant="h4">
+                ลงชื่อเข้าระบบผู้ดูแล (Admin)
+              </Typography>
             </Grid>
             <Grid xs={12} md={12} lg={12} className={classes.form}>
               <Grid

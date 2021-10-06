@@ -1,7 +1,7 @@
 import { gql, useQuery, useMutation } from "@apollo/client";
 
 const useAdminApi = () => {
-  const getSingleAdmin = gql`
+  const GET_SINGLE_ADMIN = gql`
     query Query($getAdminId: ID!) {
       getAdmin(_id: $getAdminId) {
         _id
@@ -49,7 +49,7 @@ const useAdminApi = () => {
     }
   `;
 
-  const createdAdmin = gql`
+  const SIGNUP_ADMIN = gql`
     mutation Mutation($createdAdminInput: AdminSigninInput!) {
       createdAdmin(input: $createdAdminInput) {
         _id
@@ -87,7 +87,7 @@ const useAdminApi = () => {
     }
   `;
 
-  const updateAdmin = gql`
+  const UPDATE_ADMIN = gql`
     mutation Mutation(
       $updateAdminId: ID!
       $updateAdminInput: AdminUpdateInput!
@@ -128,7 +128,7 @@ const useAdminApi = () => {
     }
   `;
 
-  const deleteAdmin = gql`
+  const DELETE_ADMIN = gql`
     mutation Mutation($deleteAdminId: ID!) {
       deleteAdmin(_id: $deleteAdminId) {
         _id
@@ -166,7 +166,7 @@ const useAdminApi = () => {
     }
   `;
 
-  const validateGuide = gql`
+  const VALIDATION_GUIDE = gql`
     mutation Mutation($validateguideId: ID!) {
       validateguide(_id: $validateguideId) {
         _id
@@ -178,35 +178,45 @@ const useAdminApi = () => {
         ContactAddress
         PhoneNumber
         Email
-        IsValidated
+        Gmail
+        IsVerified
         Education {
           Degree
           Acadamy
-          Certificate
+          Certificate {
+            filename
+            mimetype
+            data
+          }
         }
         WorkExp {
           JobTitle
           WorkPlace
-          JobPosition
-        }
-        LangSkill {
-          Languages
-          Level
         }
         IdCard
-        FaceWithIdCard
-        ValidatedDate
+        FaceWithIdCard {
+          filename
+          mimetype
+          data
+        }
+        VerifyDate
         GoogleId
-        Avatar
-        CongenitalDisorders
-        Role
+        Avatar {
+          filename
+          mimetype
+          data
+        }
+        Status {
+          Tag
+          Details
+        }
         CreatedAt
         UpdatedAt
       }
     }
   `;
 
-  const loginAdmin = gql`
+  const LOGIN = gql`
     query Query($loginAdminToken: String) {
       loginAdmin(Token: $loginAdminToken) {
         _id
@@ -242,12 +252,12 @@ const useAdminApi = () => {
   `;
 
   return {
-    getSingleAdmin,
-    createdAdmin,
-    updateAdmin,
-    deleteAdmin,
-    validateGuide,
-    loginAdmin,
+    GET_SINGLE_ADMIN,
+    SIGNUP_ADMIN,
+    UPDATE_ADMIN,
+    DELETE_ADMIN,
+    VALIDATION_GUIDE,
+    LOGIN,
   };
 };
 
