@@ -8,13 +8,16 @@ import {
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import { withStyles, createStyles } from "@material-ui/styles";
-import moment from "moment";
+import { useState } from "react";
 import convertToThaiDate from "../../hooks/convertToThaiDate";
 import Guide from "../../models/Guide";
+import GuideInfo from "./GuideInfo";
 
 interface GuideRowProps {
   key: any;
-  guide?: Guide;
+  guide: Guide;
+  setAlert: any
+  setDenyAlert: any
 }
 
 const StyledTableRow = withStyles((theme: Theme) =>
@@ -36,7 +39,10 @@ const StyledTableCell = withStyles((theme: Theme) =>
   })
 )(TableCell);
 
-function GuideRow({ key, guide }: GuideRowProps) {
+function GuideRow({ key, guide, setAlert, setDenyAlert }: GuideRowProps) {
+
+  const [open, setOpen] = useState<boolean>(false)
+
   return (
     <StyledTableRow key={key}>
       <StyledTableCell align="center">
@@ -53,7 +59,7 @@ function GuideRow({ key, guide }: GuideRowProps) {
         {convertToThaiDate(new Date(guide?.CreatedAt))}
       </StyledTableCell>
       <StyledTableCell align="center">
-        <Button>
+        <Button onClick={() => setOpen(true)}>
           <Grid
             container
             direction="row"
@@ -66,6 +72,7 @@ function GuideRow({ key, guide }: GuideRowProps) {
           </Grid>
         </Button>
       </StyledTableCell>
+      <GuideInfo open={open} setOpen={setOpen} setAlert={setAlert} setDenyAlert={setDenyAlert} guide={guide}/>
     </StyledTableRow>
   );
 }

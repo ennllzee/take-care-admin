@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client";
 import {
-  CircularProgress,
   Container,
   createStyles,
   Grid,
+  LinearProgress,
   makeStyles,
   Table,
   TableBody,
@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { history } from "../../helper/history";
 import useAdminApi from "../../hooks/adminhooks";
 import Guide from "../../models/Guide";
+import Alert from "../Alert/Alert";
 import GuideRow from "./GuideRow";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,8 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const StyledTableCell = withStyles((theme) => ({
+const StyledTableCell = withStyles((theme: Theme) => ({
   head: {
+    backgroundColor: "#8196D4",
     color: "white",
     textAlign: "center",
   },
@@ -65,11 +67,16 @@ function ValidateGuidePage() {
 
   const { GET_NONVALIDATED } = useAdminApi();
 
-  const { loading, error, data } = useQuery(GET_NONVALIDATED, {pollInterval: 60000,});
+  const { loading, error, data } = useQuery(GET_NONVALIDATED, {
+    pollInterval: 60000,
+  });
 
   const [guides, setGuides] = useState<Guide[]>(
     data !== undefined ? data.getNonVerifyGuide : []
   );
+
+  const [alert, setAlert] = useState<boolean>(false);
+  const [denyAlert, setDenyAlert] = useState<boolean>(false);
 
   useEffect(() => {
     if (!loading && data) {
@@ -113,31 +120,53 @@ function ValidateGuidePage() {
               </TableHead>
 
               <TableBody className={classes.tbody}>
-                {!loading ? (
-                  guides
-                    .slice()
-                    .sort((a, b) => {
-                      return (
-                        new Date(a.CreatedAt).getTime() -
-                        new Date(b.CreatedAt).getTime()
-                      );
-                    })
-                    .map((g, k) => {
-                      return <GuideRow key={k} guide={g} />;
-                    })
-                ) : (
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    justify="center"
-                  >
-                    <CircularProgress disableShrink />
-                  </Grid>
-                )}
+                {guides
+                  .slice()
+                  .sort((a, b) => {
+                    return (
+                      new Date(a.CreatedAt).getTime() -
+                      new Date(b.CreatedAt).getTime()
+                    );
+                  })
+                  .map((g, k) => {
+                    return (
+                      <GuideRow
+                        key={k}
+                        guide={g}
+                        setAlert={setAlert}
+                        setDenyAlert={setDenyAlert}
+                      />
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>
+          {loading && (
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="center"
+            >
+              <Grid item xs={12}>
+                <LinearProgress />
+              </Grid>
+            </Grid>
+          )}
+          <Alert
+            closeAlert={() => setAlert(false)}
+            alert={alert}
+            title="สำเร็จ"
+            text="อนุมัติไกด์สำเร็จ"
+            buttonText="ปิด"
+          />
+          <Alert
+            closeAlert={() => setDenyAlert(false)}
+            alert={denyAlert}
+            title="สำเร็จ"
+            text="ปฏิเสธไกด์สำเร็จ"
+            buttonText="ปิด"
+          />
         </Grid>
       </Container>
     </div>

@@ -107,7 +107,7 @@ function SideBar({ open, classes, handleDrawerClose, setLogin }: IOpen) {
               <ListItemIcon>
                 <EditIcon />
               </ListItemIcon>
-              <ListItemText primary="Guide Validation" />
+              <ListItemText primary="รายชื่อไกด์รอการอนุมัติ" />
             </ListItem>
           </Link>
 
@@ -124,7 +124,7 @@ function SideBar({ open, classes, handleDrawerClose, setLogin }: IOpen) {
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText primary="Logout" />
+            <ListItemText primary="ลงชื่อออก" />
           </ListItem>
         </List>
 

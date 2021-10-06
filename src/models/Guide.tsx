@@ -7,6 +7,8 @@ interface Guide {
     LastName: string
     Gender: string
     DOB: any
+    Address: string
+    ContactAddress: string
     PhoneNumber: string
     Email: string
     GoogleId: string
@@ -20,6 +22,7 @@ interface Guide {
     WorkExp: WorkExp[]
     LangSkill: LanguageSkill[]
     IdCard: string
+    FaceWithIdCard?: any
     VerifyDate?: any
     Avatar?: any
     Status: {

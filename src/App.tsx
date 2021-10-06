@@ -121,7 +121,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     colorAppBar: {
       // change ColorAppBar
-      background: "#8FA5E6",
+      background: "#8196D4",
     },
     bg: {
       backgroundColor: "#F6F6F4",
