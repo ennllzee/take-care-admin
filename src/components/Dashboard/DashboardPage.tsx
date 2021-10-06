@@ -1,39 +1,24 @@
 import {
+  Container,
   createStyles,
   Grid,
   makeStyles,
   Theme,
   Typography,
-  Paper,
 } from "@material-ui/core";
 import { useEffect } from "react";
 import { history } from "../../helper/history";
-import GoogleLogin from "react-google-login";
-import Alert from "../Alert/Alert";
+import Dashboard from "@material-ui/icons/Dashboard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      // minHeight: "100vh",
-      // backgroundColor: "#8FA5E6",
+      padding: theme.spacing(3),
     },
-    paper: {
-      background: "white",
-      width: "80vw",
-      marginTop: theme.spacing(8),
-    },
-    login: {
-      padding: "5%",
-    },
-    form: {
-      paddingTop: "2%",
-      paddingBottom: "2%",
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    google: {
-      padding: "2%",
+    title: {
+      marginTop: "3%",
+      marginLeft: "2%",
+      marginBottom: "2%",
     },
   })
 );
@@ -50,26 +35,24 @@ function DashboardPage() {
   }, [accessToken]);
 
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justify="space-between"
-      className={classes.root}
-    >
-      <Grid item></Grid>
-
-      <Grid item>
-        <Paper className={classes.paper}>
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Grid xs={12} md={12} lg={12}>
-              Dashboard
-            </Grid>
+    <div className={classes.root}>
+      <Grid className={classes.title}>
+        <Grid container spacing={1} alignItems="center">
+          <Grid item>
+            <Dashboard fontSize="large" />
           </Grid>
-        </Paper>
+          <Grid item xs zeroMinWidth style={{ margin: "auto" }}>
+            <Typography variant="h3" noWrap>
+              Dashboard
+            </Typography>
+          </Grid>
+        </Grid>
       </Grid>
-      <Grid item></Grid>
-    </Grid>
+
+      <Container maxWidth="lg">
+        <Grid container spacing={3}></Grid>
+      </Container>
+    </div>
   );
 }
 export default DashboardPage;

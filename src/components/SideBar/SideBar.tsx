@@ -25,9 +25,10 @@ interface IOpen {
   setOpen: any;
   classes: any;
   handleDrawerClose: any;
+  setLogin: any
 }
 
-function SideBar({ open, classes, handleDrawerClose }: IOpen) {
+function SideBar({ open, classes, handleDrawerClose, setLogin }: IOpen) {
   const theme = useTheme();
   const history = useHistory();
 
@@ -35,6 +36,7 @@ function SideBar({ open, classes, handleDrawerClose }: IOpen) {
 
   const logout = async () => {
     await localStorage.clear();
+    setLogin(false)
     history.push("/");
     handleDrawerClose();
     setOpenConfirmDialog(false);
@@ -62,7 +64,7 @@ function SideBar({ open, classes, handleDrawerClose }: IOpen) {
         }}
       >
         <div className={classes.drawerHeader}>
-          <Avatar src="./logo_png.png" className={classes.big} />
+          <Avatar src="./logo.png" className={classes.big} />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />

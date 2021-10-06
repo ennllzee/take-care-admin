@@ -43,16 +43,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function LoginPage() {
+interface LoginPageProps {
+  setLogin: any;
+  login: boolean
+}
+
+function LoginPage({ setLogin, login } : LoginPageProps) {
   const classes = useStyles();
 
-  const accessToken = localStorage.getItem("accessToken");
+  // const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (accessToken !== null) {
+    if (login) {
       history.push(`/dashboard`);
     }
-  }, [accessToken]);
+  }, [login]);
 
   const [res, setRes] = useState<any>();
   const [token, setToken] = useState<string>();
@@ -74,12 +79,13 @@ function LoginPage() {
       if (data) {
         localStorage.setItem("_id", data.loginAdmin._id);
         localStorage.setItem("accessToken", res.accessToken);
+        setLogin(true)
         history.push(`/dashboard`);
       } else {
         setAlert(true);
       }
     }
-    if(error) console.log(error.graphQLErrors)
+    if (error) console.log(error.graphQLErrors);
   }, [loading, res, token, error, data]);
 
   const [alert, setAlert] = useState<boolean>(false);

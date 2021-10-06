@@ -27,6 +27,15 @@ const theme = createMuiTheme({
     caption: {
       fontSize: 10,
     },
+    h1: {
+      fontSize: 36,
+    },
+    h2: {
+      fontSize: 32,
+    },
+    h3: {
+      fontSize: 28,
+    },
     h4: {
       fontSize: 24,
     },
@@ -124,12 +133,16 @@ const useStyles = makeStyles((theme: Theme) =>
 function App() {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
+  const accessToken = localStorage.getItem("accessToken");
+  const id = localStorage.getItem("_id");
+  const [login, setLogin] = useState<boolean>(accessToken !== null && id !== null);
 
   const handleDrawerOpen = () => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken !== null) {
+    // const accessToken = localStorage.getItem("accessToken");
+    // const id = localStorage.getItem("_id");
+    if (login) {
       setOpen(true);
-    } else if (accessToken === null) {
+    } else {
       setOpen(false);
     }
   };
@@ -147,6 +160,7 @@ function App() {
             setOpen={setOpen}
             classes={classes}
             handleDrawerOpen={handleDrawerOpen}
+            login={login}
           />
 
           <SideBar
@@ -154,6 +168,7 @@ function App() {
             setOpen={setOpen}
             classes={classes}
             handleDrawerClose={handleDrawerClose}
+            setLogin={setLogin}
           />
 
           <main
@@ -168,8 +183,12 @@ function App() {
             <div className={classes.drawerHeader} />
 
             <Switch>
-              <Route exact path="/" component={LoginPage} />
-              <Route exact path={`/validate&=guide`} component={ValidateGuidePage} />
+              <Route exact path="/" component={() => <LoginPage setLogin={setLogin} login={login}/>} />
+              <Route
+                exact
+                path={`/validate&=guide`}
+                component={ValidateGuidePage}
+              />
               <Route exact path="/dashboard" component={DashboardPage} />
             </Switch>
           </main>

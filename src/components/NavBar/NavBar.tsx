@@ -7,24 +7,16 @@ import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-import { useEffect } from "react";
 
 interface IOpen {
   open: boolean;
   setOpen: any;
   classes: any;
   handleDrawerOpen: any;
+  login: boolean;
 }
 
-function NavBar({ open, classes, handleDrawerOpen }: IOpen) {
-  const id = localStorage.getItem("_id");
-  const accessToken = localStorage.getItem("accessToken");
-
-  useEffect(() => {
-    if (id !== null && accessToken !== null) {
-    }
-  }, [id, accessToken]);
-
+function NavBar({ open, classes, handleDrawerOpen, login }: IOpen) {
   return (
     <div>
       <AppBar
@@ -38,7 +30,7 @@ function NavBar({ open, classes, handleDrawerOpen }: IOpen) {
         )}
       >
         <Toolbar>
-          {accessToken !== null && id !== null && (
+          {login && (
             <IconButton
               color="inherit"
               aria-label="open drawer"

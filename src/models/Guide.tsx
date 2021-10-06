@@ -11,7 +11,6 @@ interface Guide {
     Email: string
     GoogleId: string
     Gmail: string
-    EmergencyTel?: string 
     IsVerified: boolean
     Education: {
         Degree: string
@@ -23,7 +22,6 @@ interface Guide {
     IdCard: string
     VerifyDate?: any
     Avatar?: any
-    CongenitalDisorders?: string
     Status: {
         Tag: string
         Details: string[]
