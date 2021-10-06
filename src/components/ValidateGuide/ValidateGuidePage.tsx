@@ -44,8 +44,8 @@ import {
     const accessToken = localStorage.getItem("accessToken");
   
     useEffect(() => {
-      if (accessToken !== null && id !== null) {
-        history.push(`/dashboard`);
+      if (accessToken === null && id === null) {
+        history.push(`/`);
       }
     }, [accessToken]);
   

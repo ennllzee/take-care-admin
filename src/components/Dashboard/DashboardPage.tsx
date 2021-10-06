@@ -40,12 +40,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function DashboardPage() {
   const classes = useStyles();
-  const id = localStorage.gettItem("_id");
+  const id = localStorage.getItem("_id");
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (accessToken !== null && id !== null) {
-      history.push(`/dashboard`);
+    if (accessToken === null || id === null) {
+      history.push(`/`);
     }
   }, [accessToken]);
 
