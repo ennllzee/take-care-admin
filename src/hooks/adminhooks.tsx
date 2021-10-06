@@ -220,33 +220,6 @@ const useAdminApi = () => {
     query Query($loginAdminToken: String) {
       loginAdmin(Token: $loginAdminToken) {
         _id
-        FirstName
-        LastName
-        Gender
-        DOB
-        Address
-        ContactAddress
-        PhoneNumber
-        Email
-        Education {
-          Degree
-          Acadamy
-          Certificate
-        }
-        WorkExp {
-          JobTitle
-          WorkPlace
-          JobPosition
-        }
-        LangSkill {
-          Languages
-          Level
-        }
-        Avatar
-        CongenitalDisorders
-        Role
-        CreatedAt
-        UpdatedAt
       }
     }
   `;
