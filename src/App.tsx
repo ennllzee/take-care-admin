@@ -13,6 +13,8 @@ import { Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import SideBar from "./components/SideBar/SideBar";
 import LoginPage from "./components/Login/LoginPage";
+import ValidateGuidePage from "./components/ValidateGuide/ValidateGuidePage";
+import DashboardPage from "./components/Dashboard/DashboardPage";
 
 const drawerWidth = 240;
 
@@ -167,6 +169,8 @@ function App() {
 
             <Switch>
               <Route exact path="/" component={LoginPage} />
+              <Route exact path={`/validate&=guide`} component={ValidateGuidePage} />
+              <Route exact path="/dashboard" component={DashboardPage} />
             </Switch>
           </main>
         </div>

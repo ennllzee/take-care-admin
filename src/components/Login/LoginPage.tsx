@@ -58,7 +58,6 @@ function LoginPage() {
   const [token, setToken] = useState<string>();
 
   const responseGoogle = async (response: any) => {
-    console.log(response);
     setRes(response);
     setToken(response.tokenId);
   };
@@ -80,7 +79,8 @@ function LoginPage() {
         setAlert(true);
       }
     }
-  }, [loading]);
+    if(error) console.log(error.graphQLErrors)
+  }, [loading, res, token, error, data]);
 
   const [alert, setAlert] = useState<boolean>(false);
 

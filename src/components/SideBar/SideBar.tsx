@@ -12,11 +12,13 @@ import AnnouncementIcon from "@material-ui/icons/Announcement";
 // import DescriptionIcon from "@material-ui/icons/Description";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import EditIcon from "@material-ui/icons/Edit";
-import PersonIcon from '@material-ui/icons/Person';
+import PersonIcon from "@material-ui/icons/Person";
 import { useTheme } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import { Avatar } from "@material-ui/core";
 import { useState } from "react";
+import Submit from "../Submit/Submit";
+import { useGoogleLogout } from "react-google-login";
 
 interface IOpen {
   open: boolean;
@@ -30,14 +32,19 @@ function SideBar({ open, classes, handleDrawerClose }: IOpen) {
   const history = useHistory();
 
   const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
-  
 
-  const logout= async () => {
-    await localStorage.removeItem('token');
+  const logout = async () => {
+    await localStorage.clear();
     history.push("/");
     handleDrawerClose();
     setOpenConfirmDialog(false);
   };
+
+  const { signOut } = useGoogleLogout({
+    clientId:
+      "907374215732-cj2ep14tclbc8aehn9svjkcnfn4ai8cl.apps.googleusercontent.com",
+    onLogoutSuccess: logout,
+  });
 
   const displayConfirmDialog = () => {
     setOpenConfirmDialog(true);
@@ -66,16 +73,19 @@ function SideBar({ open, classes, handleDrawerClose }: IOpen) {
         </div>
         <Divider />
         <List>
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+          <Link
+            to="/dashboard"
+            style={{ textDecoration: "none", color: "black" }}
+          >
             <ListItem button>
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
-
               <ListItemText primary="Dashboard" />
             </ListItem>
           </Link>
-          <Link
+
+          {/* <Link
             to="/announce"
             style={{ textDecoration: "none", color: "black" }}
           >
@@ -85,25 +95,28 @@ function SideBar({ open, classes, handleDrawerClose }: IOpen) {
               </ListItemIcon>
               <ListItemText primary="Announce" />
             </ListItem>
-          </Link>
+          </Link> */}
 
-          <Link to="/manage" style={{ textDecoration: "none", color: "black" }}>
+          <Link
+            to={`/validate&=guide`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
             <ListItem button>
               <ListItemIcon>
                 <EditIcon />
               </ListItemIcon>
-              <ListItemText primary="Manage" />
+              <ListItemText primary="Guide Validation" />
             </ListItem>
           </Link>
 
-          <Link to="/manageEmp" style={{ textDecoration: "none", color: "black" }}>
+          {/* <Link to="/manageEmp" style={{ textDecoration: "none", color: "black" }}>
             <ListItem button>
               <ListItemIcon>
                 <PersonIcon />
               </ListItemIcon>
               <ListItemText primary="Employees" />
             </ListItem>
-          </Link>
+          </Link> */}
 
           <ListItem button onClick={displayConfirmDialog}>
             <ListItemIcon>
@@ -111,11 +124,19 @@ function SideBar({ open, classes, handleDrawerClose }: IOpen) {
             </ListItemIcon>
             <ListItemText primary="Logout" />
           </ListItem>
-          
         </List>
 
         <Divider />
       </Drawer>
+      <Submit
+        submit={openConfirmDialog}
+        title="ลงชื่อออก"
+        text="ต้องการลงชื่อออกจากระบบ?"
+        denyText="ไม่"
+        submitText="ใช่"
+        denyAction={() => setOpenConfirmDialog(false)}
+        submitAction={signOut}
+      />
     </>
   );
 }
