@@ -22,6 +22,7 @@ import {
   Cancel,
   CheckCircle,
   Close,
+  ContactPhone,
   Language,
   Work,
 } from "@material-ui/icons";
@@ -80,22 +81,22 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     bord: {
       border: "2px solid black",
-      padding: '1%'
+      padding: "1%",
     },
     topBorder: {
       borderTop: "2px solid black",
-      paddingTop: '1%'
+      paddingTop: "1%",
     },
     buttom: {
-      backgroundColor: "#8196D4",
-      color: 'white'
-    }
+      backgroundColor: "#000000",
+      color: "white",
+    },
   })
 );
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#8196D4",
+    backgroundColor: "#000000",
     color: "white",
     textAlign: "center",
     padding: "1%",
@@ -182,7 +183,7 @@ function AddAppointment({
                       cover={true}
                     />
                   </Grid>
-                  <Grid item xs={12} md={7} lg={8} style={{ padding: "1%" }} >
+                  <Grid item xs={12} md={7} lg={8} style={{ padding: "1%" }}>
                     <Grid
                       container
                       direction="row"
@@ -254,7 +255,10 @@ function AddAppointment({
                     </Grid>
                     <Grid item xs={12} md={12} lg={12}>
                       <Typography align="right">
-                        <Button onClick={() => setOpenId(true)} className={classes.buttom}>
+                        <Button
+                          onClick={() => setOpenId(true)}
+                          className={classes.buttom}
+                        >
                           <Grid
                             container
                             direction="row"
@@ -278,55 +282,56 @@ function AddAppointment({
                   container
                   direction="row"
                   alignItems="flex-start"
-                  justify="space-between"
+                  justify="space-evenly"
                   className={classes.bord}
                 >
-                  <Grid item xs={12} md={12} lg={4}>
+                  <Grid item xs={12} md={12} lg={12}>
                     <Typography variant="h3" align="left">
                       <Book /> การศึกษา
                     </Typography>
                   </Grid>
                   <Grid item xs={3} md={3} lg={3}>
-                    <Typography variant="h6" align="right">
+                    <Typography variant="h6" align="left">
                       ระดับการศึกษา:
                     </Typography>
                   </Grid>
-                  <Grid item xs={8} md={8} lg={4}>
+                  <Grid item xs={8} md={8} lg={8}>
                     <Typography variant="h6">
                       {guide.Education.Degree}
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={12} lg={4}></Grid>
                   <Grid item xs={3} md={3} lg={3}>
-                    <Typography variant="h6" align="right">
+                    <Typography variant="h6" align="left">
                       สถาบันการศึกษา:
                     </Typography>
                   </Grid>
-                  <Grid item xs={8} md={8} lg={4}>
+                  <Grid item xs={8} md={8} lg={8}>
                     <Typography variant="h6">
                       {guide.Education.Acadamy}
                     </Typography>
                   </Grid>
-                <Grid item xs={12} md={12} lg={12} style={{padding: '1%'}}>
-                  <Typography align="right">
-                    <Button onClick={() => setOpenId(false)} className={classes.buttom}>
-                      <Grid
-                        container
-                        direction="row"
-                        spacing={1}
-                        justify="center"
-                        alignItems="center"
+                  <Grid item xs={12} md={12} lg={12} style={{ padding: "1%" }}>
+                    <Typography align="right">
+                      <Button
+                        onClick={() => setOpenId(false)}
+                        className={classes.buttom}
                       >
-                        <AttachFile />
-                        <Typography variant="h6">
-                          ตรวจสอบหลักฐานการสำเร็จการศึกษา
-                        </Typography>
-                      </Grid>
-                    </Button>
-                  </Typography>
+                        <Grid
+                          container
+                          direction="row"
+                          spacing={1}
+                          justify="center"
+                          alignItems="center"
+                        >
+                          <AttachFile />
+                          <Typography variant="h6">
+                            ตรวจสอบหลักฐานการสำเร็จการศึกษา
+                          </Typography>
+                        </Grid>
+                      </Button>
+                    </Typography>
+                  </Grid>
                 </Grid>
-                </Grid>
-                
               </Grid>
               <Grid xs={12} md={12} lg={12} className={classes.divide}>
                 <Grid
@@ -334,7 +339,7 @@ function AddAppointment({
                   direction="row"
                   alignItems="flex-start"
                   justify="space-between"
-                  style={{ padding: "1%" }}
+                  className={classes.bord}
                 >
                   <Grid item xs={12} md={12} lg={5}>
                     <Typography variant="h3" align="left">
@@ -387,7 +392,7 @@ function AddAppointment({
                     direction="row"
                     alignItems="flex-start"
                     justify="space-between"
-                    style={{ padding: "1%" }}
+                    className={classes.bord}
                   >
                     <Grid item xs={12} md={12} lg={12}>
                       <Typography variant="h3" align="left">
@@ -431,6 +436,51 @@ function AddAppointment({
                   </Grid>
                 </Grid>
               )}
+              <Grid xs={12} md={12} lg={12} className={classes.divide}>
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="flex-start"
+                  justify="space-evenly"
+                  className={classes.bord}
+                >
+                  <Grid item xs={12} md={12} lg={12}>
+                    <Typography variant="h3" align="left">
+                      <ContactPhone /> ช่องทางการติดต่อ
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={3} md={3} lg={3}>
+                    <Typography variant="h6" align="left">
+                      ที่อยู่ที่ติดต่อได้:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={8} md={8} lg={8}>
+                    <Typography variant="h6">
+                      {guide.ContactAddress}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={3} md={3} lg={3}>
+                    <Typography variant="h6" align="left">
+                      เบอร์โทรศัพท์:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={8} md={8} lg={8}>
+                    <Typography variant="h6">
+                      {guide.PhoneNumber}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={3} md={3} lg={3}>
+                    <Typography variant="h6" align="left">
+                      อีเมล์:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={8} md={8} lg={8}>
+                    <Typography variant="h6">
+                      {guide.Email}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12} md={12} lg={5} className={classes.divide}>
@@ -446,8 +496,8 @@ function AddAppointment({
                       ? guide.FaceWithIdCard.data
                       : guide.Education.Certificate.data
                   }`}
-                  aspectRatio={4/3}
-                  cover={true}
+                  // aspectRatio={3 / 3}
+                  // cover={true}
                 />
               </Grid>
               <Grid item xs={12} md={12} lg={12}>
@@ -471,7 +521,11 @@ function AddAppointment({
                   type="button"
                   fullWidth={true}
                   // variant="contained"
-                  style={{ backgroundColor:"#D86060", color: "white", padding: "3%" }}
+                  style={{
+                    backgroundColor: "#D86060",
+                    color: "white",
+                    padding: "3%",
+                  }}
                   onClick={() => setConfirmDeny(true)}
                 >
                   <Grid
@@ -490,7 +544,11 @@ function AddAppointment({
                 <Button
                   type="button"
                   fullWidth={true}
-                  style={{ backgroundColor:"#54C965", color: "white", padding: "3%" }}
+                  style={{
+                    backgroundColor: "#54C965",
+                    color: "white",
+                    padding: "3%",
+                  }}
                   onClick={() => setConfirm(true)}
                 >
                   <Grid
