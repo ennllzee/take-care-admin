@@ -33,7 +33,7 @@ import moment from "moment";
 import convertToThaiDate from "../../hooks/convertToThaiDate";
 import WorkRow from "./WorkRow";
 import LangRow from "./LangRow";
-import ImageIcon from '@material-ui/icons/Image';
+import ImageIcon from "@material-ui/icons/Image";
 
 interface AddAppointmentProps {
   open: boolean;
@@ -75,6 +75,18 @@ const useStyles = makeStyles((theme: Theme) =>
     tbody: {
       background: "white",
     },
+    bord: {
+      border: "2px solid black",
+      padding: '1%'
+    },
+    topBorder: {
+      borderTop: "2px solid black",
+      paddingTop: '1%'
+    },
+    buttom: {
+      backgroundColor: "#8196D4",
+      color: 'white'
+    }
   })
 );
 
@@ -137,20 +149,25 @@ function AddAppointment({
               alignItems="flex-start"
             >
               <Grid xs={12} md={12} lg={12} className={classes.divide}>
-                <Grid container alignItems="flex-start" justify="center">
+                <Grid
+                  container
+                  alignItems="center"
+                  justify="center"
+                  className={classes.bord}
+                >
                   <Grid item xs={12} md={5} lg={4} style={{ padding: "1%" }}>
                     <Image
                       src={`data:${guide.Avatar.mimetype};base64,${guide.Avatar.data}`}
                       cover={true}
                     />
                   </Grid>
-                  <Grid item xs={12} md={7} lg={8}>
+                  <Grid item xs={12} md={7} lg={8} style={{ padding: "1%" }} >
                     <Grid
                       container
                       direction="row"
                       alignItems="flex-start"
                       justify="space-between"
-                      style={{ padding: "1%" }}
+                      // style={{ padding: "1%" }}
                     >
                       <Grid item xs={3}>
                         <Typography variant="h6" align="right">
@@ -216,19 +233,21 @@ function AddAppointment({
                     </Grid>
                     <Grid item xs={12} md={12} lg={12}>
                       <Typography align="right">
-                        <Button onClick={() => setOpenId(true)}>
-                        <Grid
-                    container
-                    direction="row"
-                    spacing={1}
-                    justify="center"
-                    alignItems="center"
-                  >
-                    <ImageIcon />
-                    <Typography variant="h6">ตรวจสอบรูปคู่บัตรประชาชน</Typography>
-                  </Grid>
-                    </Button>
-                  </Typography>
+                        <Button onClick={() => setOpenId(true)} className={classes.buttom}>
+                          <Grid
+                            container
+                            direction="row"
+                            spacing={1}
+                            justify="center"
+                            alignItems="center"
+                          >
+                            <ImageIcon />
+                            <Typography variant="h6">
+                              ตรวจสอบรูปคู่บัตรประชาชน
+                            </Typography>
+                          </Grid>
+                        </Button>
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -239,7 +258,7 @@ function AddAppointment({
                   direction="row"
                   alignItems="flex-start"
                   justify="space-between"
-                  style={{ padding: "1%" }}
+                  className={classes.bord}
                 >
                   <Grid item xs={12} md={12} lg={4}>
                     <Typography variant="h3" align="left">
@@ -267,11 +286,9 @@ function AddAppointment({
                       {guide.Education.Acadamy}
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={12} lg={3}></Grid>
-                </Grid>
-                <Grid item xs={12} md={12} lg={12}>
+                <Grid item xs={12} md={12} lg={12} style={{padding: '1%'}}>
                   <Typography align="right">
-                    <Button onClick={() => setOpenId(false)}>
+                    <Button onClick={() => setOpenId(false)} className={classes.buttom}>
                       <Grid
                         container
                         direction="row"
@@ -281,12 +298,14 @@ function AddAppointment({
                       >
                         <AttachFile />
                         <Typography variant="h6">
-                          ตรวจสอบหลักฐานการสำเร็๗การศึกษา
+                          ตรวจสอบหลักฐานการสำเร็จการศึกษา
                         </Typography>
                       </Grid>
                     </Button>
                   </Typography>
                 </Grid>
+                </Grid>
+                
               </Grid>
               <Grid xs={12} md={12} lg={12} className={classes.divide}>
                 <Grid
@@ -406,7 +425,7 @@ function AddAppointment({
                       ? guide.FaceWithIdCard.data
                       : guide.Education.Certificate.data
                   }`}
-                  aspectRatio={3 / 4}
+                  aspectRatio={4/3}
                   cover={true}
                 />
               </Grid>
@@ -424,13 +443,14 @@ function AddAppointment({
               direction="row"
               justify="space-between"
               alignItems="center"
+              className={classes.topBorder}
             >
-              <Grid item xs={4}>
+              <Grid item xs={4} md={4} lg={3}>
                 <Button
                   type="button"
                   fullWidth={true}
                   // variant="contained"
-                  style={{ padding: "5%" }}
+                  style={{ backgroundColor:"#D86060", color: "white", padding: "3%" }}
                   onClick={() => setConfirmDeny(true)}
                 >
                   <Grid
@@ -445,11 +465,11 @@ function AddAppointment({
                   </Grid>
                 </Button>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={4} md={4} lg={3}>
                 <Button
                   type="button"
                   fullWidth={true}
-                  style={{ padding: "5%" }}
+                  style={{ backgroundColor:"#54C965", color: "white", padding: "3%" }}
                   onClick={() => setConfirm(true)}
                 >
                   <Grid
