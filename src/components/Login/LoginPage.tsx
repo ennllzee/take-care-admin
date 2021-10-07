@@ -5,7 +5,6 @@ import {
   Theme,
   Typography,
   Paper,
-  CssBaseline,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { history } from "../../helper/history";
@@ -13,7 +12,7 @@ import GoogleLogin from "react-google-login";
 import Alert from "../Alert/Alert";
 import { useGoogleLogout } from "react-google-login";
 
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import useAdminApi from "../../hooks/adminhooks";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,10 +44,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface LoginPageProps {
   setLogin: any;
-  login: boolean
+  login: boolean;
 }
 
-function LoginPage({ setLogin, login } : LoginPageProps) {
+function LoginPage({ setLogin, login }: LoginPageProps) {
   const classes = useStyles();
 
   // const accessToken = localStorage.getItem("accessToken");
@@ -79,14 +78,14 @@ function LoginPage({ setLogin, login } : LoginPageProps) {
       if (data) {
         localStorage.setItem("_id", data.loginAdmin._id);
         localStorage.setItem("accessToken", res.accessToken);
-        setLogin(true)
+        setLogin(true);
         history.push(`/dashboard`);
       } else {
         setAlert(true);
       }
     }
     if (error) console.log(error.graphQLErrors);
-  }, [loading, res, token, error, data]);
+  }, [loading, res, token, error, data, setLogin]);
 
   const [alert, setAlert] = useState<boolean>(false);
 

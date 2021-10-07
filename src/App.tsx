@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./App.css";
 import { Switch } from "react-router";
 import clsx from "clsx";
@@ -137,6 +137,10 @@ function App() {
   const id = localStorage.getItem("_id");
   const [login, setLogin] = useState<boolean>(accessToken !== null && id !== null);
 
+  const loginHelp = useCallback(() => {
+    setLogin(true)
+  }, [setLogin])
+
   const handleDrawerOpen = () => {
     // const accessToken = localStorage.getItem("accessToken");
     // const id = localStorage.getItem("_id");
@@ -183,7 +187,7 @@ function App() {
             <div className={classes.drawerHeader} />
 
             <Switch>
-              <Route exact path="/" component={() => <LoginPage setLogin={setLogin} login={login}/>} />
+              <Route exact path="/" component={() => <LoginPage setLogin={loginHelp} login={login}/>} />
               <Route
                 exact
                 path={`/validate&=guide`}

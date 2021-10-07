@@ -32,6 +32,8 @@ interface Guide {
     Role: string
     CreatedAt: any
     UpdatedAt: any
+    Rating?: number
+    Tips?: number
 }
 
 export default Guide

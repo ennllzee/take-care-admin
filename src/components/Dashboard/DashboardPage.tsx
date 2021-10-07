@@ -32,7 +32,7 @@ function DashboardPage() {
     if (accessToken === null || id === null) {
       history.push(`/`);
     }
-  }, [accessToken]);
+  }, [accessToken, id]);
 
   return (
     <div className={classes.root}>

@@ -545,7 +545,7 @@ function AddAppointment({
                   type="button"
                   fullWidth={true}
                   style={{
-                    backgroundColor: "#54C965",
+                    backgroundColor: "#4CB85C",
                     color: "white",
                     padding: "3%",
                   }}
