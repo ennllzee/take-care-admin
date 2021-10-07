@@ -34,6 +34,9 @@ import convertToThaiDate from "../../hooks/convertToThaiDate";
 import WorkRow from "./WorkRow";
 import LangRow from "./LangRow";
 import ImageIcon from "@material-ui/icons/Image";
+import { useMutation } from "@apollo/client";
+import useAdminApi from "../../hooks/adminhooks";
+
 
 interface AddAppointmentProps {
   open: boolean;
@@ -112,14 +115,32 @@ function AddAppointment({
   const [confirmDeny, setConfirmDeny] = useState<boolean>(false);
   const [openId, setOpenId] = useState<boolean>(true);
 
+  const { VALIDATION_GUIDE } = useAdminApi();
+
+  const [responseValidation] = useMutation(VALIDATION_GUIDE, {
+    onCompleted: (data: any) => {
+      console.log(data)
+    }
+  })
+
   const submit = () => {
-    //wait for validate
+    responseValidation({
+      variables: {
+        validateguideId: guide._id,
+        validateguideApprove: true,
+      },
+    });
     setAlert(true);
     setOpen(false);
   };
 
   const deny = () => {
-    //wait for deny validate
+    responseValidation({
+      variables: {
+        validateguideId: guide._id,
+        validateguideApprove: false,
+      },
+    });    
     setDenyAlert(true);
     setOpen(false);
   };

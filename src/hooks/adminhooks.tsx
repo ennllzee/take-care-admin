@@ -167,45 +167,14 @@ const useAdminApi = () => {
   `;
 
   const VALIDATION_GUIDE = gql`
-    mutation Mutation($validateguideId: ID!) {
-      validateguide(_id: $validateguideId) {
+    mutation Mutation($validateguideId: ID!, $validateguideApprove: Boolean!) {
+      validateguide(_id: $validateguideId, approve: $validateguideApprove) {
         _id
         FirstName
         LastName
-        Gender
-        DOB
-        Address
-        ContactAddress
-        PhoneNumber
-        Email
         Gmail
         IsVerified
-        Education {
-          Degree
-          Acadamy
-          Certificate {
-            filename
-            mimetype
-            data
-          }
-        }
-        WorkExp {
-          JobTitle
-          WorkPlace
-        }
-        IdCard
-        FaceWithIdCard {
-          filename
-          mimetype
-          data
-        }
         VerifyDate
-        GoogleId
-        Avatar {
-          filename
-          mimetype
-          data
-        }
         Status {
           Tag
           Details
@@ -286,7 +255,7 @@ const useAdminApi = () => {
     DELETE_ADMIN,
     VALIDATION_GUIDE,
     LOGIN,
-    GET_NONVALIDATED
+    GET_NONVALIDATED,
   };
 };
 
