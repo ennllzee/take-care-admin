@@ -22,6 +22,7 @@ function Alert({ closeAlert, alert, title, text, buttonText }: AlertProps) {
       aria-describedby="alert-dialog-description"
       aria-labelledby="alert-dialog-title"
       open={alert}
+      fullWidth={true}
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
@@ -30,7 +31,7 @@ function Alert({ closeAlert, alert, title, text, buttonText }: AlertProps) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={closeAlert} color="primary">
+        <Button onClick={closeAlert} >
           {buttonText}
         </Button>
       </DialogActions>

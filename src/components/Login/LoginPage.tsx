@@ -4,27 +4,31 @@ import {
   makeStyles,
   Theme,
   Typography,
-  Paper,
+  Backdrop,
+  Button,
+  CircularProgress,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { history } from "../../helper/history";
-import GoogleLogin from "react-google-login";
+import { useGoogleLogin } from "react-google-login";
 import Alert from "../Alert/Alert";
 import { useGoogleLogout } from "react-google-login";
 
 import { useQuery } from "@apollo/client";
 import useAdminApi from "../../hooks/adminhooks";
+import { ExitToApp } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       // minHeight: "100vh",
       // backgroundColor: "#8FA5E6",
+      marginTop: theme.spacing(8),
     },
     paper: {
-      background: "white",
+      // background: "white",
       width: "80vw",
-      marginTop: theme.spacing(8),
+      
     },
     login: {
       padding: "5%",
@@ -93,6 +97,16 @@ function LoginPage({ setLogin, login }: LoginPageProps) {
     setAlert(false);
   };
 
+  
+  const { signIn } = useGoogleLogin({
+    clientId:
+      "907374215732-cj2ep14tclbc8aehn9svjkcnfn4ai8cl.apps.googleusercontent.com",
+    onSuccess: responseGoogle,
+    isSignedIn: true,
+    onFailure: responseGoogle,
+    cookiePolicy: "single_host_origin",
+  });
+
   const { signOut } = useGoogleLogout({
     clientId:
       "907374215732-cj2ep14tclbc8aehn9svjkcnfn4ai8cl.apps.googleusercontent.com",
@@ -107,44 +121,50 @@ function LoginPage({ setLogin, login }: LoginPageProps) {
       justify="space-between"
       className={classes.root}
     >
-      <Grid item></Grid>
-
       <Grid item>
-        <Paper className={classes.paper}>
+        {/* <Paper className={classes.paper}> */}
           <Grid
             container
             direction="row"
             justify="center"
             alignItems="center"
-            className={classes.login}
+            className={classes.google}
           >
-            <Grid xs={12} md={12} lg={12}>
-              <Typography variant="h4">
-                ลงชื่อเข้าระบบผู้ดูแล (Admin)
+            <Grid item xs={12} md={12} lg={12} >
+              <Typography variant="h4" align="center" noWrap>
+                ลงชื่อเข้าระบบ
               </Typography>
             </Grid>
-            <Grid xs={12} md={12} lg={12} className={classes.form}>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                className={classes.google}
+            <Grid item xs={12} md={12} lg={12} >
+              <Typography align="center">
+              <Button
+                onClick={signIn}
+                // fullWidth={true}
+                style={{
+                  // padding: "3%",
+                  backgroundColor: "#8196D4",
+                  color: "white",
+                }}
               >
-                <GoogleLogin
-                  clientId="907374215732-cj2ep14tclbc8aehn9svjkcnfn4ai8cl.apps.googleusercontent.com"
-                  buttonText="Sign in with Google"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                  cookiePolicy={"single_host_origin"}
-                  isSignedIn={true}
-                />
-              </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  // spacing={1}
+                  justify="center"
+                  alignItems="center"
+                >
+                  <ExitToApp />
+                  <Typography variant="body1">Sign In with Google</Typography>
+                </Grid>
+              </Button>
+              </Typography>
             </Grid>
           </Grid>
-        </Paper>
+          <Backdrop open={loading}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        {/* </Paper> */}
       </Grid>
-      <Grid item></Grid>
       <Alert
         closeAlert={signOut}
         alert={alert}

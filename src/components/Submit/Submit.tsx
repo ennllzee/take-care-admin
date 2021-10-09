@@ -32,6 +32,7 @@ function Submit({
       aria-describedby="alert-dialog-description"
       aria-labelledby="alert-dialog-title"
       open={submit}
+      fullWidth={true}
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
@@ -41,10 +42,10 @@ function Submit({
       </DialogContent>
       <DialogActions>
         <DialogActions>
-          <Button onClick={denyAction} color="primary">
+          <Button onClick={denyAction} >
             {denyText}
           </Button>
-          <Button onClick={submitAction} color="primary">
+          <Button onClick={submitAction} style={{backgroundColor:"#8196D4" ,color:"white"}}>
             {submitText}
           </Button>
         </DialogActions>

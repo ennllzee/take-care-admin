@@ -1,6 +1,7 @@
 import {
   Button,
   createStyles,
+  Divider,
   Grid,
   IconButton,
   makeStyles,
@@ -38,7 +39,6 @@ import ImageIcon from "@material-ui/icons/Image";
 import { useMutation } from "@apollo/client";
 import useAdminApi from "../../hooks/adminhooks";
 
-
 interface AddAppointmentProps {
   open: boolean;
   setOpen: any;
@@ -74,29 +74,25 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: "1%",
     },
     thead: {
-      background: "#25272E",
+      background: "#8196D4",
     },
     tbody: {
       background: "white",
     },
     bord: {
-      border: "2px solid black",
+      // border: "2px solid black",
       padding: "1%",
     },
     topBorder: {
       borderTop: "2px solid black",
       paddingTop: "1%",
     },
-    buttom: {
-      backgroundColor: "#000000",
-      color: "white",
-    },
   })
 );
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#000000",
+    backgroundColor: "#8196D4",
     color: "white",
     textAlign: "center",
     padding: "1%",
@@ -120,9 +116,9 @@ function AddAppointment({
 
   const [responseValidation] = useMutation(VALIDATION_GUIDE, {
     onCompleted: (data: any) => {
-      console.log(data)
-    }
-  })
+      console.log(data);
+    },
+  });
 
   const submit = () => {
     responseValidation({
@@ -141,7 +137,7 @@ function AddAppointment({
         validateguideId: guide._id,
         validateguideApprove: false,
       },
-    });    
+    });
     setDenyAlert(true);
     setOpen(false);
   };
@@ -157,6 +153,7 @@ function AddAppointment({
         <Grid xs={12} md={12} lg={12} className={classes.line}>
           <Typography variant="h1">ข้อมูลไกด์</Typography>
         </Grid>
+        
         <Grid
           container
           direction="row"
@@ -257,7 +254,10 @@ function AddAppointment({
                       <Typography align="right">
                         <Button
                           onClick={() => setOpenId(true)}
-                          className={classes.buttom}
+                          style={{
+                            backgroundColor: "#8196D4",
+                            color: "white",
+                          }}
                         >
                           <Grid
                             container
@@ -277,7 +277,9 @@ function AddAppointment({
                   </Grid>
                 </Grid>
               </Grid>
+              
               <Grid xs={12} md={12} lg={12} className={classes.divide}>
+              <Divider/>
                 <Grid
                   container
                   direction="row"
@@ -314,7 +316,10 @@ function AddAppointment({
                     <Typography align="right">
                       <Button
                         onClick={() => setOpenId(false)}
-                        className={classes.buttom}
+                        style={{
+                          backgroundColor: "#8196D4",
+                          color: "white",
+                        }}
                       >
                         <Grid
                           container
@@ -334,6 +339,7 @@ function AddAppointment({
                 </Grid>
               </Grid>
               <Grid xs={12} md={12} lg={12} className={classes.divide}>
+              <Divider/>
                 <Grid
                   container
                   direction="row"
@@ -437,6 +443,7 @@ function AddAppointment({
                 </Grid>
               )}
               <Grid xs={12} md={12} lg={12} className={classes.divide}>
+              <Divider/>
                 <Grid
                   container
                   direction="row"
@@ -455,9 +462,7 @@ function AddAppointment({
                     </Typography>
                   </Grid>
                   <Grid item xs={8} md={8} lg={8}>
-                    <Typography variant="h6">
-                      {guide.ContactAddress}
-                    </Typography>
+                    <Typography variant="h6">{guide.ContactAddress}</Typography>
                   </Grid>
                   <Grid item xs={3} md={3} lg={3}>
                     <Typography variant="h6" align="left">
@@ -465,9 +470,7 @@ function AddAppointment({
                     </Typography>
                   </Grid>
                   <Grid item xs={8} md={8} lg={8}>
-                    <Typography variant="h6">
-                      {guide.PhoneNumber}
-                    </Typography>
+                    <Typography variant="h6">{guide.PhoneNumber}</Typography>
                   </Grid>
                   <Grid item xs={3} md={3} lg={3}>
                     <Typography variant="h6" align="left">
@@ -475,9 +478,7 @@ function AddAppointment({
                     </Typography>
                   </Grid>
                   <Grid item xs={8} md={8} lg={8}>
-                    <Typography variant="h6">
-                      {guide.Email}
-                    </Typography>
+                    <Typography variant="h6">{guide.Email}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
