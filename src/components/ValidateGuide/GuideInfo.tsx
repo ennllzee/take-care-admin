@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#8196D4",
+    backgroundColor: "#6479D9",
     color: "white",
     textAlign: "center",
     padding: "1%",
@@ -255,7 +255,7 @@ function AddAppointment({
                         <Button
                           onClick={() => setOpenId(true)}
                           style={{
-                            backgroundColor: "#8196D4",
+                            backgroundColor: "#6479D9",
                             color: "white",
                           }}
                         >
@@ -317,7 +317,7 @@ function AddAppointment({
                       <Button
                         onClick={() => setOpenId(false)}
                         style={{
-                          backgroundColor: "#8196D4",
+                          backgroundColor: "#6479D9",
                           color: "white",
                         }}
                       >
@@ -513,26 +513,23 @@ function AddAppointment({
             <Grid
               container
               direction="row"
-              justify="space-between"
+              justify="space-evenly"
               alignItems="center"
               className={classes.topBorder}
             >
-              <Grid item xs={4} md={4} lg={3}>
+              <Grid item xs={4} md={3} lg={2}>
                 <Button
                   type="button"
                   fullWidth={true}
-                  // variant="contained"
                   style={{
                     backgroundColor: "#D86060",
                     color: "white",
-                    padding: "3%",
                   }}
                   onClick={() => setConfirmDeny(true)}
                 >
                   <Grid
                     container
                     direction="row"
-                    spacing={1}
                     justify="center"
                     alignItems="center"
                   >
@@ -541,21 +538,19 @@ function AddAppointment({
                   </Grid>
                 </Button>
               </Grid>
-              <Grid item xs={4} md={4} lg={3}>
+              <Grid item xs={4} md={3} lg={2}>
                 <Button
                   type="button"
                   fullWidth={true}
                   style={{
                     backgroundColor: "#4CB85C",
                     color: "white",
-                    padding: "3%",
                   }}
                   onClick={() => setConfirm(true)}
                 >
                   <Grid
                     container
                     direction="row"
-                    spacing={1}
                     justify="center"
                     alignItems="center"
                   >

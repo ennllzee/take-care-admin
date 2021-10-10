@@ -15,6 +15,8 @@ import SideBar from "./components/SideBar/SideBar";
 import LoginPage from "./components/Login/LoginPage";
 import ValidateGuidePage from "./components/ValidateGuide/ValidateGuidePage";
 import DashboardPage from "./components/Dashboard/DashboardPage";
+import CustomerDataPage from "./components/CustomerData/CustomerDataPage";
+import GuideDataPage from "./components/GuideData/GuideDataPage";
 
 const drawerWidth = 240;
 
@@ -43,7 +45,7 @@ const theme = createMuiTheme({
       fontSize: 20,
     },
     h6: {
-      fontSize: 14,
+      fontSize: 16,
     },
     button: {
       fintSize: 12,
@@ -194,6 +196,8 @@ function App() {
                 component={ValidateGuidePage}
               />
               <Route exact path="/dashboard" component={DashboardPage} />
+              <Route exact path="/customer" component={CustomerDataPage} />
+              <Route exact path="/guide" component={GuideDataPage} />
             </Switch>
           </main>
         </div>

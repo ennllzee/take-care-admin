@@ -19,6 +19,7 @@ import { Avatar } from "@material-ui/core";
 import { useState } from "react";
 import Submit from "../Submit/Submit";
 import { useGoogleLogout } from "react-google-login";
+import { Person, PersonPin } from "@material-ui/icons";
 
 interface IOpen {
   open: boolean;
@@ -108,6 +109,30 @@ function SideBar({ open, classes, handleDrawerClose, setLogin }: IOpen) {
                 <EditIcon />
               </ListItemIcon>
               <ListItemText primary="รายชื่อไกด์รอการอนุมัติ" />
+            </ListItem>
+          </Link>
+
+          <Link
+            to={`/customer`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <Person />
+              </ListItemIcon>
+              <ListItemText primary="รายชื่อลูกค้า" />
+            </ListItem>
+          </Link>
+
+          <Link
+            to={`/guide`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <PersonPin />
+              </ListItemIcon>
+              <ListItemText primary="รายชื่อไกด์" />
             </ListItem>
           </Link>
 
