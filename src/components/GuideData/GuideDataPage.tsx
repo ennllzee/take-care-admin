@@ -65,9 +65,9 @@ function GuideDataPage() {
     }
   }, [accessToken, id]);
 
-  const { GET_ALLCUSTOMER } = useAdminApi();
+  const { GET_ALLGUIDE } = useAdminApi();
 
-  const { loading, error, data } = useQuery(GET_ALLCUSTOMER, {
+  const { loading, error, data } = useQuery(GET_ALLGUIDE, {
     pollInterval: 60000,
   });
 
