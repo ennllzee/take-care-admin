@@ -78,7 +78,6 @@ function GuideDataPage() {
   useEffect(() => {
     if (!loading && data) {
       setGuides(data.getAllGuide);
-      console.log(data.getAllGuide);
     }
     if (error) console.log(error.graphQLErrors);
   }, [loading, data, error]);
