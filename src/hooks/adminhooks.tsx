@@ -248,6 +248,87 @@ const useAdminApi = () => {
     }
   `;
 
+  const GET_ALLCUSTOMER = gql`
+    query Query {
+      getAllCustomer {
+        _id
+        FirstName
+        LastName
+        Gender
+        DOB
+        PhoneNumber
+        Email
+        Gmail
+        EmergencyTel
+        Avatar {
+          filename
+          mimetype
+          data
+        }
+        CongenitalDisorders
+        Role
+        CreatedAt
+        UpdatedAt
+      }
+    }
+  `;
+
+  const GET_ALLGUIDE = gql`
+    query Query {
+      getAllGuide {
+        _id
+        FirstName
+        LastName
+        Gender
+        DOB
+        ContactAddress
+        Address
+        PhoneNumber
+        Email
+        Gmail
+        IsVerified
+        Education {
+          Degree
+          Acadamy
+          Certificate {
+            filename
+            mimetype
+            data
+          }
+        }
+        WorkExp {
+          JobTitle
+          WorkPlace
+        }
+        LangSkill {
+          Language
+          Level
+        }
+        IdCard
+        FaceWithIdCard {
+          filename
+          mimetype
+          data
+        }
+        VerifyDate
+        Avatar {
+          filename
+          mimetype
+          data
+        }
+        Role
+        Status {
+          Tag
+          Details
+        }
+        ReviewStat {
+          AvgScore
+          PricePerHour
+          Details
+        }
+      }
+    }
+  `;
   return {
     GET_SINGLE_ADMIN,
     SIGNUP_ADMIN,
@@ -256,6 +337,8 @@ const useAdminApi = () => {
     VALIDATION_GUIDE,
     LOGIN,
     GET_NONVALIDATED,
+    GET_ALLCUSTOMER,
+    GET_ALLGUIDE
   };
 };
 
