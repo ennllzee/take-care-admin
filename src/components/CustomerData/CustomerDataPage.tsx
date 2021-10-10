@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import {
   Container,
   createStyles,
@@ -15,13 +14,13 @@ import {
   Typography,
   withStyles,
 } from "@material-ui/core";
-import Edit from "@material-ui/icons/Edit";
 import { useEffect, useState } from "react";
 import { history } from "../../helper/history";
+import { Person } from "@material-ui/icons";
 import useAdminApi from "../../hooks/adminhooks";
-import Guide from "../../models/Guide";
-import Alert from "../Alert/Alert";
-import GuideRow from "./GuideRow";
+import Customer from "../../models/Customer";
+import { useQuery } from "@apollo/client";
+import CustomerRow from "./CustomerRow";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,33 +53,30 @@ const StyledTableCell = withStyles((theme: Theme) => ({
   },
 }))(TableCell);
 
-function ValidateGuidePage() {
+function CustomerDataPage() {
   const classes = useStyles();
   const id = localStorage.getItem("_id");
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (accessToken === null && id === null) {
+    if (accessToken === null || id === null) {
       history.push(`/`);
     }
   }, [accessToken, id]);
 
-  const { GET_NONVALIDATED } = useAdminApi();
+  const { GET_ALLCUSTOMER } = useAdminApi();
 
-  const { loading, error, data } = useQuery(GET_NONVALIDATED, {
+  const { loading, error, data } = useQuery(GET_ALLCUSTOMER, {
     pollInterval: 60000,
   });
 
-  const [guides, setGuides] = useState<Guide[]>(
-    data !== undefined ? data.getNonVerifyGuide : []
+  const [customers, setCustomers] = useState<Customer[]>(
+    data !== undefined ? data.getAllCustomer : []
   );
-
-  const [alert, setAlert] = useState<boolean>(false);
-  const [denyAlert, setDenyAlert] = useState<boolean>(false);
 
   useEffect(() => {
     if (!loading && data) {
-      setGuides(data.getNonVerifyGuide);
+      setCustomers(data.getAllCustomer);
     }
     if (error) console.log(error.graphQLErrors);
   }, [loading, data, error]);
@@ -90,11 +86,11 @@ function ValidateGuidePage() {
       <Grid className={classes.title}>
         <Grid container spacing={1} alignItems="center">
           <Grid item>
-            <Edit fontSize="large" />
+            <Person fontSize="large" />
           </Grid>
           <Grid item xs zeroMinWidth style={{ margin: "auto" }}>
             <Typography variant="h3" noWrap>
-              รายชื่อไกด์รอการอนุมัติ
+              รายชื่อลูกค้า
             </Typography>
           </Grid>
         </Grid>
@@ -120,7 +116,7 @@ function ValidateGuidePage() {
               </TableHead>
 
               <TableBody className={classes.tbody}>
-                {guides
+                {customers
                   .slice()
                   .sort((a, b) => {
                     return (
@@ -128,15 +124,8 @@ function ValidateGuidePage() {
                       new Date(b.CreatedAt).getTime()
                     );
                   })
-                  .map((g, k) => {
-                    return (
-                      <GuideRow
-                        key={k}
-                        guide={g}
-                        setAlert={setAlert}
-                        setDenyAlert={setDenyAlert}
-                      />
-                    );
+                  .map((c, k) => {
+                    return <CustomerRow key={k} customer={c} />;
                   })}
               </TableBody>
             </Table>
@@ -153,24 +142,9 @@ function ValidateGuidePage() {
               </Grid>
             )}
           </TableContainer>
-
-          <Alert
-            closeAlert={() => setAlert(false)}
-            alert={alert}
-            title="สำเร็จ"
-            text="อนุมัติไกด์สำเร็จ"
-            buttonText="ปิด"
-          />
-          <Alert
-            closeAlert={() => setDenyAlert(false)}
-            alert={denyAlert}
-            title="สำเร็จ"
-            text="ปฏิเสธไกด์สำเร็จ"
-            buttonText="ปิด"
-          />
         </Grid>
       </Container>
     </div>
   );
 }
-export default ValidateGuidePage;
+export default CustomerDataPage;

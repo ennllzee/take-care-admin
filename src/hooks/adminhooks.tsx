@@ -281,8 +281,8 @@ const useAdminApi = () => {
         LastName
         Gender
         DOB
-        ContactAddress
         Address
+        ContactAddress
         PhoneNumber
         Email
         Gmail
@@ -311,6 +311,7 @@ const useAdminApi = () => {
           data
         }
         VerifyDate
+        GoogleId
         Avatar {
           filename
           mimetype
@@ -321,11 +322,14 @@ const useAdminApi = () => {
           Tag
           Details
         }
+        CreatedAt
+        UpdatedAt
         Rating
         Tips
       }
     }
   `;
+
   return {
     GET_SINGLE_ADMIN,
     SIGNUP_ADMIN,
@@ -335,7 +339,7 @@ const useAdminApi = () => {
     LOGIN,
     GET_NONVALIDATED,
     GET_ALLCUSTOMER,
-    GET_ALLGUIDE
+    GET_ALLGUIDE,
   };
 };
 
