@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import "./App.css";
-import { Switch } from "react-router";
 import clsx from "clsx";
 import {
   makeStyles,
@@ -9,7 +8,7 @@ import {
   createMuiTheme,
   ThemeProvider,
 } from "@material-ui/core/styles";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import SideBar from "./components/SideBar/SideBar";
 import LoginPage from "./components/Login/LoginPage";

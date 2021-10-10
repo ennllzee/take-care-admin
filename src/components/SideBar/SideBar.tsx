@@ -65,7 +65,7 @@ function SideBar({ open, classes, handleDrawerClose, setLogin }: IOpen) {
         }}
       >
         <div className={classes.drawerHeader}>
-          <Avatar src="./logo.png" className={classes.big} />
+          <Avatar src="/logo.png" className={classes.big} />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
