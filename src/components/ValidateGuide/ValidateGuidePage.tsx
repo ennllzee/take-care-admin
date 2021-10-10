@@ -11,6 +11,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Theme,
   Typography,
   withStyles,
@@ -85,6 +86,8 @@ function ValidateGuidePage() {
     if (error) console.log(error.graphQLErrors);
   }, [loading, data, error]);
 
+  const [search, setSearch] = useState<string>("");
+
   return (
     <div className={classes.root}>
       <Grid className={classes.title}>
@@ -102,12 +105,35 @@ function ValidateGuidePage() {
 
       <Container maxWidth="lg">
         <Grid container spacing={3}>
+        <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0 }}>
+            <TextField
+              variant="outlined"
+              fullWidth={true}
+              type="text"
+              label="ค้นหาชื่อ"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{ backgroundColor: "white" }}
+            />
+            <Typography align="right" color="textSecondary">
+              จำนวนข้อมูลทั้งหมด:{" "}
+              {
+                guides.filter(
+                  (g) =>
+                    g.FirstName.includes(search) ||
+                    g.LastName.includes(search) ||
+                    search === ""
+                ).length
+              }
+            </Typography>
+          </Grid>
           <TableContainer className={classes.table_contianer}>
             <Table>
               <colgroup>
-                <col style={{ width: "40%" }} />
-                <col style={{ width: "10%" }} />
                 <col style={{ width: "30%" }} />
+                <col style={{ width: "10%" }} />
+                <col style={{ width: "20%" }} />
+                <col style={{ width: "20%" }} />
                 <col style={{ width: "20%" }} />
               </colgroup>
               <TableHead>
@@ -115,6 +141,7 @@ function ValidateGuidePage() {
                   <StyledTableCell>ชื่อ-นามสกุล</StyledTableCell>
                   <StyledTableCell>เพศ</StyledTableCell>
                   <StyledTableCell>วันที่ลงทะเบียน</StyledTableCell>
+                  <StyledTableCell>อัปเดตข้อมูลล่าสุด</StyledTableCell>
                   <StyledTableCell>ข้อมูล</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -129,14 +156,22 @@ function ValidateGuidePage() {
                     );
                   })
                   .map((g, k) => {
-                    return (
-                      <GuideRow
-                        key={k}
-                        guide={g}
-                        setAlert={setAlert}
-                        setDenyAlert={setDenyAlert}
-                      />
-                    );
+                    if (
+                      g.FirstName.includes(search) ||
+                      g.LastName.includes(search) ||
+                      search === ""
+                    ) {
+                      return (
+                        <GuideRow
+                          key={k}
+                          guide={g}
+                          setAlert={setAlert}
+                          setDenyAlert={setDenyAlert}
+                        />
+                      );
+                    } else {
+                      return <></>;
+                    }
                   })}
               </TableBody>
             </Table>

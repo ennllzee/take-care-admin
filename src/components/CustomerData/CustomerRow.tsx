@@ -11,6 +11,7 @@ import { withStyles, createStyles } from "@material-ui/styles";
 import { useState } from "react";
 import convertToThaiDate from "../../hooks/convertToThaiDate";
 import Customer from "../../models/Customer";
+import CustomerInfo from "./CustomerInfo";
 interface CustomerRowProps {
   key: any;
   customer: Customer;
@@ -55,6 +56,9 @@ function CustomerRow({ key, customer }: CustomerRowProps) {
         {convertToThaiDate(new Date(customer?.CreatedAt))}
       </StyledTableCell>
       <StyledTableCell align="center">
+        {convertToThaiDate(new Date(customer?.UpdatedAt))}
+      </StyledTableCell>
+      <StyledTableCell align="center">
         <Button onClick={() => setOpen(true)}>
           <Grid
             container
@@ -64,10 +68,11 @@ function CustomerRow({ key, customer }: CustomerRowProps) {
             alignItems="center"
           >
             <Search />
-            <Typography variant="body1">ตรวจสอบ</Typography>
+            <Typography variant="body1">รายละเอียด</Typography>
           </Grid>
         </Button>
       </StyledTableCell>
+      <CustomerInfo open={open} setOpen={setOpen} customer={customer}/>
     </StyledTableRow>
   );
 }

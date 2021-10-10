@@ -31,7 +31,7 @@ function Alert({ closeAlert, alert, title, text, buttonText }: AlertProps) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeAlert} >
+        <Button onClick={closeAlert}>
           {buttonText}
         </Button>
       </DialogActions>

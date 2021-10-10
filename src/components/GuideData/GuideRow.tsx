@@ -11,6 +11,7 @@ import { withStyles, createStyles } from "@material-ui/styles";
 import { useState } from "react";
 import convertToThaiDate from "../../hooks/convertToThaiDate";
 import Guide from "../../models/Guide";
+import GuideInfo from "./GuideInfo";
 
 interface GuideRowProps {
   key: any;
@@ -56,6 +57,9 @@ function GuideRow({ key, guide }: GuideRowProps) {
         {convertToThaiDate(new Date(guide?.CreatedAt))}
       </StyledTableCell>
       <StyledTableCell align="center">
+        {convertToThaiDate(new Date(guide?.UpdatedAt))}
+      </StyledTableCell>
+      <StyledTableCell align="center">
         <Button onClick={() => setOpen(true)}>
           <Grid
             container
@@ -65,10 +69,11 @@ function GuideRow({ key, guide }: GuideRowProps) {
             alignItems="center"
           >
             <Search />
-            <Typography variant="body1">ตรวจสอบ</Typography>
+            <Typography variant="body1">รายละเอียด</Typography>
           </Grid>
         </Button>
       </StyledTableCell>
+      <GuideInfo open={open} setOpen={setOpen} guide={guide}/>
     </StyledTableRow>
   );
 }

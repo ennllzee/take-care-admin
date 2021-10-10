@@ -59,6 +59,9 @@ function GuideRow({ key, guide, setAlert, setDenyAlert }: GuideRowProps) {
         {convertToThaiDate(new Date(guide?.CreatedAt))}
       </StyledTableCell>
       <StyledTableCell align="center">
+        {convertToThaiDate(new Date(guide?.UpdatedAt))}
+      </StyledTableCell>
+      <StyledTableCell align="center">
         <Button onClick={() => setOpen(true)}>
           <Grid
             container

@@ -1,7 +1,5 @@
 import {
-  Backdrop,
   Button,
-  CircularProgress,
   createStyles,
   Divider,
   Grid,
@@ -22,32 +20,24 @@ import {
 import {
   AttachFile,
   Book,
-  Cancel,
-  CheckCircle,
   Close,
   ContactPhone,
   Language,
+  Star,
   Work,
 } from "@material-ui/icons";
 import { useState } from "react";
-import Submit from "../Submit/Submit";
 import Guide from "../../models/Guide";
 import Image from "material-ui-image";
-import moment from "moment";
 import convertToThaiDate from "../../hooks/convertToThaiDate";
 import WorkRow from "./WorkRow";
 import LangRow from "./LangRow";
 import ImageIcon from "@material-ui/icons/Image";
-import { useMutation } from "@apollo/client";
-import useAdminApi from "../../hooks/adminhooks";
-import Alert from "../Alert/Alert";
-import TextSubmit from "../Submit/TextSubmit";
+import moment from "moment";
 
 interface GuideInfoProps {
   open: boolean;
   setOpen: any;
-  setAlert: any;
-  setDenyAlert: any;
   guide: Guide;
 }
 
@@ -103,81 +93,14 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-function GuideInfo({
-  open,
-  setOpen,
-  setAlert,
-  setDenyAlert,
-  guide,
-}: GuideInfoProps) {
+function GuideInfo({ open, setOpen, guide }: GuideInfoProps) {
   const classes = useStyles();
 
-  const [confirm, setConfirm] = useState<boolean>(false);
-  const [confirmDeny, setConfirmDeny] = useState<boolean>(false);
   const [openId, setOpenId] = useState<boolean>(true);
-
-  const { VALIDATION_GUIDE } = useAdminApi();
-
-  const [
-    responseValidation,
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation(VALIDATION_GUIDE, {
-    onCompleted: (data: any) => {
-      console.log(data);
-    },
-  });
-
-  const [failed, setFailed] = useState<boolean>(false);
-
-  const submit = async () => {
-    await responseValidation({
-      variables: {
-        validateguideId: guide._id,
-        validateguideApprove: true,
-      },
-    });
-
-    if (mutationError) {
-      console.log(mutationError.graphQLErrors);
-      setFailed(true);
-    } else {
-      setAlert(true);
-      setOpen(false);
-    }
-  };
-
-  const deny = async () => {
-    await responseValidation({
-      variables: {
-        validateguideId: guide._id,
-        validateguideApprove: false,
-      },
-    });
-
-    if (mutationError) {
-      console.log(mutationError.graphQLErrors);
-      setFailed(true);
-    } else {
-      setDenyAlert(true);
-      setOpen(false);
-    }
-  };
-
-  const [text, setText] = useState<string | undefined>()
 
   return (
     <Modal open={open} className={classes.modal}>
       <Paper className={classes.paper}>
-        <Backdrop open={mutationLoading}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-        <Alert
-          closeAlert={() => setFailed(false)}
-          alert={failed}
-          title="ผิดพลาด"
-          text="กรุณาลองใหม่อีกครั้ง"
-          buttonText="ปิด"
-        />
         <Typography align="right">
           <IconButton onClick={() => setOpen(false)} style={{ padding: "0" }}>
             <Close />
@@ -186,13 +109,14 @@ function GuideInfo({
         <Grid xs={12} md={12} lg={12} className={classes.line}>
           <Typography variant="h1">ข้อมูลไกด์</Typography>
         </Grid>
+
         <Grid
           container
           direction="row"
           justify="center"
           alignItems="flex-start"
         >
-          <Grid item xs={12} md={12} lg={7} className={classes.divide}>
+          <Grid item xs={12} md={12} lg={6} className={classes.divide}>
             <Grid
               container
               direction="row"
@@ -216,7 +140,7 @@ function GuideInfo({
                       cover={true}
                     />
                   </Grid>
-                  <Grid item xs={12} md={7} lg={8} style={{ padding: "1%" }}>
+                  <Grid item xs={12} md={8} lg={8} style={{ padding: "1%" }}>
                     <Grid
                       container
                       direction="row"
@@ -286,33 +210,46 @@ function GuideInfo({
                         <Typography variant="h6">{guide.Address}</Typography>
                       </Grid>
                     </Grid>
-                    <Grid item xs={12} md={12} lg={12}>
-                      <Typography align="right">
-                        <Button
-                          onClick={() => setOpenId(true)}
-                          style={{
-                            backgroundColor: "#6479D9",
-                            color: "white",
-                          }}
-                        >
-                          <Grid
-                            container
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                          >
-                            <ImageIcon />
-                            <Typography variant="h6">
-                              ตรวจสอบรูปคู่บัตรประชาชน
-                            </Typography>
-                          </Grid>
-                        </Button>
-                      </Typography>
-                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-
+              <Grid xs={12} md={12} lg={12} className={classes.divide}>
+                <Divider />
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="center"
+                  justify="flex-start"
+                  className={classes.bord}
+                >
+                  <Grid item xs={4}>
+                    <Typography variant="body1">
+                      วันที่ได้รับการอนุมัติ:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography variant="body1">
+                      {" "}
+                      {convertToThaiDate(new Date(guide.VerifyDate))}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={1}>
+                    <Star style={{ color: "#FFC300" }} />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography variant="body1">
+                      {guide.Rating !== null && guide.Rating !== 0
+                        ? guide.Rating
+                        : "new guide"}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography variant="body1">
+                      Tips: {guide.Tips} บาท/ชั่วโมง
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
               <Grid xs={12} md={12} lg={12} className={classes.divide}>
                 <Divider />
                 <Grid
@@ -346,82 +283,6 @@ function GuideInfo({
                     <Typography variant="h6">
                       {guide.Education.Acadamy}
                     </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={12} style={{ padding: "1%" }}>
-                    <Typography align="right">
-                      <Button
-                        onClick={() => setOpenId(false)}
-                        style={{
-                          backgroundColor: "#6479D9",
-                          color: "white",
-                        }}
-                      >
-                        <Grid
-                          container
-                          direction="row"
-                          justify="center"
-                          alignItems="center"
-                        >
-                          <AttachFile />
-                          <Typography variant="h6">
-                            ตรวจสอบหลักฐานการสำเร็จการศึกษา
-                          </Typography>
-                        </Grid>
-                      </Button>
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid xs={12} md={12} lg={12} className={classes.divide}>
-                <Divider />
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="flex-start"
-                  justify="space-between"
-                  className={classes.bord}
-                >
-                  <Grid item xs={12} md={12} lg={5}>
-                    <Typography variant="h3" align="left">
-                      <Work /> ประวัติการทำงาน
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} md={12} lg={7}>
-                    <Typography variant="h6" align="center">
-                      {guide.WorkExp.length === 0 && "ไม่มีประวัติการทำงาน"}
-                    </Typography>
-                  </Grid>
-                  <Grid xs={12} md={12} lg={12}>
-                    {guide.WorkExp.length !== 0 && (
-                      <>
-                        <TableContainer className={classes.table_contianer}>
-                          <Table>
-                            <colgroup>
-                              <col style={{ width: "50%" }} />
-                              <col style={{ width: "50%" }} />
-                            </colgroup>
-                            <TableHead>
-                              <TableRow className={classes.thead}>
-                                <StyledTableCell>หน่วยงาน</StyledTableCell>
-                                <StyledTableCell>ตำแหน่งงาน</StyledTableCell>
-                              </TableRow>
-                            </TableHead>
-
-                            <TableBody className={classes.tbody}>
-                              {guide.WorkExp.map((w, k) => {
-                                return (
-                                  <WorkRow
-                                    key={k}
-                                    title={w.JobTitle}
-                                    place={w.WorkPlace}
-                                  />
-                                );
-                              })}
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
-                      </>
-                    )}
                   </Grid>
                 </Grid>
               </Grid>
@@ -476,6 +337,188 @@ function GuideInfo({
                   </Grid>
                 </Grid>
               )}
+            </Grid>
+          </Grid>
+          <Grid item xs={12} md={12} lg={6} className={classes.divide}>
+            <Grid container direction="row" justify="center">
+              <Grid xs={12} md={12} lg={12} className={classes.divide}>
+                <Grid
+                  container
+                  alignItems="center"
+                  justify="center"
+                  className={classes.bord}
+                >
+                  <Grid item xs={12} md={4} lg={4} style={{ padding: "1%" }}>
+                    <Image
+                      src={`data:${
+                        openId
+                          ? guide.FaceWithIdCard === null
+                            ? undefined
+                            : guide.FaceWithIdCard.mimetype
+                          : guide.Education.Certificate === null
+                          ? undefined
+                          : guide.Education.Certificate.mimetype
+                      };base64,${
+                        openId
+                          ? guide.FaceWithIdCard === null
+                            ? undefined
+                            : guide.FaceWithIdCard.data
+                          : guide.Education.Certificate === null
+                          ? undefined
+                          : guide.Education.Certificate.data
+                      }`}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={8} lg={8} style={{ padding: "1%" }}>
+                    <Grid
+                      container
+                      direction="row"
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <Grid
+                        item
+                        xs={12}
+                        md={12}
+                        lg={12}
+                        style={{ padding: "1%" }}
+                      >
+                        <Typography variant="h4">
+                          หลักฐานการลงทะเบียน
+                        </Typography>
+                      </Grid>
+
+                      <Grid
+                        item
+                        xs={12}
+                        md={12}
+                        lg={12}
+                        style={{ padding: "1%" }}
+                      >
+                        <Typography>
+                          <Button
+                            onClick={() => setOpenId(true)}
+                            style={
+                              openId
+                                ? {
+                                    backgroundColor: "#6479D9",
+                                    color: "white",
+                                  }
+                                : {}
+                            }
+                            disabled={openId}
+                          >
+                            <Grid
+                              container
+                              direction="row"
+                              spacing={1}
+                              justify="center"
+                              alignItems="center"
+                            >
+                              <ImageIcon />
+                              <Typography variant="h6">
+                                ตรวจสอบรูปคู่บัตรประชาชน
+                              </Typography>
+                            </Grid>
+                          </Button>
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        md={12}
+                        lg={12}
+                        style={{ padding: "1%" }}
+                      >
+                        <Typography>
+                          <Button
+                            onClick={() => setOpenId(false)}
+                            style={
+                              !openId
+                                ? {
+                                    backgroundColor: "#6479D9",
+                                    color: "white",
+                                  }
+                                : {}
+                            }
+                            disabled={!openId}
+                          >
+                            <Grid
+                              container
+                              direction="row"
+                              spacing={1}
+                              justify="center"
+                              alignItems="center"
+                            >
+                              <AttachFile />
+                              <Typography variant="h6">
+                                ตรวจสอบหลักฐานการสำเร็จการศึกษา
+                              </Typography>
+                            </Grid>
+                          </Button>
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid xs={12} md={12} lg={12} className={classes.divide}>
+                <Divider />
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="center"
+                  justify="space-between"
+                  className={classes.bord}
+                >
+                  <Grid item xs={12} md={12} lg={5}>
+                    <Typography variant="h3" align="left">
+                      <Work /> ประวัติการทำงาน
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={7}>
+                    <Typography
+                      variant="h6"
+                      align="center"
+                      color="textSecondary"
+                    >
+                      {guide.WorkExp.length === 0 && "ไม่มีประวัติการทำงาน"}
+                    </Typography>
+                  </Grid>
+                  <Grid xs={12} md={12} lg={12}>
+                    {guide.WorkExp.length !== 0 && (
+                      <>
+                        <TableContainer className={classes.table_contianer}>
+                          <Table>
+                            <colgroup>
+                              <col style={{ width: "50%" }} />
+                              <col style={{ width: "50%" }} />
+                            </colgroup>
+                            <TableHead>
+                              <TableRow className={classes.thead}>
+                                <StyledTableCell>หน่วยงาน</StyledTableCell>
+                                <StyledTableCell>ตำแหน่งงาน</StyledTableCell>
+                              </TableRow>
+                            </TableHead>
+
+                            <TableBody className={classes.tbody}>
+                              {guide.WorkExp.map((w, k) => {
+                                return (
+                                  <WorkRow
+                                    key={k}
+                                    title={w.JobTitle}
+                                    place={w.WorkPlace}
+                                  />
+                                );
+                              })}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                      </>
+                    )}
+                  </Grid>
+                </Grid>
+              </Grid>
               <Grid xs={12} md={12} lg={12} className={classes.divide}>
                 <Divider />
                 <Grid
@@ -518,111 +561,6 @@ function GuideInfo({
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={12} lg={5} className={classes.divide}>
-            <Grid container direction="row" justify="center">
-              <Grid item xs={12} md={12} lg={10}>
-                <Image
-                  src={`data:${
-                    openId
-                      ? guide.FaceWithIdCard === null
-                        ? undefined
-                        : guide.FaceWithIdCard.mimetype
-                      : guide.Education.Certificate === null
-                      ? undefined
-                      : guide.Education.Certificate.mimetype
-                  };base64,${
-                    openId
-                      ? guide.FaceWithIdCard === null
-                        ? undefined
-                        : guide.FaceWithIdCard.data
-                      : guide.Education.Certificate === null
-                      ? undefined
-                      : guide.Education.Certificate.data
-                  }`}
-                  // aspectRatio={3 / 3}
-                  // cover={true}
-                />
-              </Grid>
-              <Grid item xs={12} md={12} lg={12}>
-                <Typography variant="h6" align="center">
-                  รูป:{" "}
-                  {openId ? "รูปคู่บัตรประชาชน" : "หลักฐานการสำเร็จการศึกษา"}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid xs={12} md={12} lg={12}>
-            <Grid
-              container
-              direction="row"
-              justify="space-evenly"
-              alignItems="center"
-              className={classes.topBorder}
-            >
-              <Grid item xs={4} md={3} lg={2}>
-                <Button
-                  type="button"
-                  fullWidth={true}
-                  style={{
-                    backgroundColor: "#D86060",
-                    color: "white",
-                  }}
-                  onClick={() => setConfirmDeny(true)}
-                >
-                  <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                  >
-                    <Cancel />
-                    <Typography variant="h6">ปฏิเสธ</Typography>
-                  </Grid>
-                </Button>
-              </Grid>
-              <Grid item xs={4} md={3} lg={2}>
-                <Button
-                  type="button"
-                  fullWidth={true}
-                  style={{
-                    backgroundColor: "#4CB85C",
-                    color: "white",
-                  }}
-                  onClick={() => setConfirm(true)}
-                >
-                  <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                  >
-                    <CheckCircle />
-                    <Typography variant="h6"> อนุมัติ</Typography>
-                  </Grid>
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Submit
-            submit={confirm}
-            title="อนุมัติ"
-            text="ยืนยันการอนุมัติไกด์คนนี้ใช่หรือไม่?"
-            denyText="ยกเลิก"
-            submitText="ยืนยัน"
-            denyAction={() => setConfirm(false)}
-            submitAction={submit}
-          />
-          <TextSubmit
-            submit={confirmDeny}
-            title="ปฏิเสธ"
-            text="ยืนยันการปฏิเสธไกด์คนนี้ใช่หรือไม่?"
-            denyText="ยกเลิก"
-            submitText="ยืนยัน"
-            denyAction={() => setConfirmDeny(false)}
-            submitAction={deny}
-            denyDetail={text}
-            setDenyDetail={setText}
-          />
         </Grid>
       </Paper>
     </Modal>

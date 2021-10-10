@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Theme,
   Typography,
   withStyles,
@@ -66,6 +67,8 @@ function CustomerDataPage() {
 
   const { GET_ALLCUSTOMER } = useAdminApi();
 
+  const [search, setSearch] = useState<string>("");
+
   const { loading, error, data } = useQuery(GET_ALLCUSTOMER, {
     pollInterval: 60000,
   });
@@ -98,12 +101,39 @@ function CustomerDataPage() {
 
       <Container maxWidth="lg">
         <Grid container spacing={3}>
+          <Grid
+            item
+            xs={12}
+            style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0 }}
+          >
+            <TextField
+              variant="outlined"
+              fullWidth={true}
+              type="text"
+              label="ค้นหาชื่อ"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{ backgroundColor: "white" }}
+            />
+            <Typography align="right" color="textSecondary">
+              จำนวนข้อมูลทั้งหมด:{" "}
+              {
+                customers.filter(
+                  (g) =>
+                    g.FirstName.includes(search) ||
+                    g.LastName.includes(search) ||
+                    search === ""
+                ).length
+              }
+            </Typography>
+          </Grid>
           <TableContainer className={classes.table_contianer}>
             <Table>
               <colgroup>
-                <col style={{ width: "40%" }} />
-                <col style={{ width: "10%" }} />
                 <col style={{ width: "30%" }} />
+                <col style={{ width: "10%" }} />
+                <col style={{ width: "20%" }} />
+                <col style={{ width: "20%" }} />
                 <col style={{ width: "20%" }} />
               </colgroup>
               <TableHead>
@@ -111,6 +141,7 @@ function CustomerDataPage() {
                   <StyledTableCell>ชื่อ-นามสกุล</StyledTableCell>
                   <StyledTableCell>เพศ</StyledTableCell>
                   <StyledTableCell>วันที่ลงทะเบียน</StyledTableCell>
+                  <StyledTableCell>อัปเดตข้อมูลล่าสุด</StyledTableCell>
                   <StyledTableCell>ข้อมูล</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -125,7 +156,15 @@ function CustomerDataPage() {
                     );
                   })
                   .map((c, k) => {
-                    return <CustomerRow key={k} customer={c} />;
+                    if (
+                      c.FirstName.includes(search) ||
+                      c.LastName.includes(search) ||
+                      search === ""
+                    ) {
+                      return <CustomerRow key={k} customer={c} />;
+                    } else {
+                      return <></>;
+                    }
                   })}
               </TableBody>
             </Table>

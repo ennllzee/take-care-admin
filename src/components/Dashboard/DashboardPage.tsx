@@ -9,6 +9,9 @@ import {
 import { useEffect } from "react";
 import { history } from "../../helper/history";
 import Dashboard from "@material-ui/icons/Dashboard";
+import CustomerBox from "./CustomerBox";
+import GuideBox from "./GuideBox ";
+import ValidateBox from "./ValidateBox";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,7 +53,17 @@ function DashboardPage() {
       </Grid>
 
       <Container maxWidth="lg">
-        <Grid container spacing={3}></Grid>
+        <Grid container spacing={3} justify="space-around">
+          <Grid item xs={12} md={4} lg={3}>
+            <CustomerBox/>
+          </Grid>
+          <Grid item xs={12} md={4} lg={3}>
+            <GuideBox/>
+          </Grid>
+          <Grid item xs={12} md={4} lg={3}>
+            <ValidateBox/>
+          </Grid>
+        </Grid>
       </Container>
     </div>
   );

@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Theme,
   Typography,
   withStyles,
@@ -20,7 +21,6 @@ import { PersonPin } from "@material-ui/icons";
 import Guide from "../../models/Guide";
 import { useQuery } from "@apollo/client";
 import useAdminApi from "../../hooks/adminhooks";
-import CustomerRow from "../CustomerData/CustomerRow";
 import GuideRow from "./GuideRow";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -78,9 +78,12 @@ function GuideDataPage() {
   useEffect(() => {
     if (!loading && data) {
       setGuides(data.getAllGuide);
+      console.log(data.getAllGuide);
     }
     if (error) console.log(error.graphQLErrors);
   }, [loading, data, error]);
+
+  const [search, setSearch] = useState<string>("");
 
   return (
     <div className={classes.root}>
@@ -99,12 +102,35 @@ function GuideDataPage() {
 
       <Container maxWidth="lg">
         <Grid container spacing={3}>
+          <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0 }}>
+            <TextField
+              variant="outlined"
+              fullWidth={true}
+              type="text"
+              label="ค้นหาชื่อ"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{ backgroundColor: "white" }}
+            />
+            <Typography align="right" color="textSecondary">
+              จำนวนข้อมูลทั้งหมด:{" "}
+              {
+                guides.filter(
+                  (g) =>
+                    (g.FirstName.includes(search) ||
+                    g.LastName.includes(search) ||
+                    search === "") && g.IsVerified
+                ).length
+              }
+            </Typography>
+          </Grid>
           <TableContainer className={classes.table_contianer}>
             <Table>
               <colgroup>
-                <col style={{ width: "40%" }} />
+              <col style={{ width: "30%" }} />
                 <col style={{ width: "10%" }} />
-                <col style={{ width: "30%" }} />
+                <col style={{ width: "20%" }} />
+                <col style={{ width: "20%" }} />
                 <col style={{ width: "20%" }} />
               </colgroup>
               <TableHead>
@@ -112,6 +138,7 @@ function GuideDataPage() {
                   <StyledTableCell>ชื่อ-นามสกุล</StyledTableCell>
                   <StyledTableCell>เพศ</StyledTableCell>
                   <StyledTableCell>วันที่ลงทะเบียน</StyledTableCell>
+                  <StyledTableCell>อัปเดตข้อมูลล่าสุด</StyledTableCell>
                   <StyledTableCell>ข้อมูล</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -125,8 +152,17 @@ function GuideDataPage() {
                       new Date(b.CreatedAt).getTime()
                     );
                   })
+                  .filter((g) => g.IsVerified)
                   .map((g, k) => {
-                    return <GuideRow key={k} guide={g} />;
+                    if (
+                      g.FirstName.includes(search) ||
+                      g.LastName.includes(search) ||
+                      search === ""
+                    ) {
+                      return <GuideRow key={k} guide={g} />;
+                    } else {
+                      return <></>;
+                    }
                   })}
               </TableBody>
             </Table>
