@@ -8,7 +8,7 @@ import {
   createMuiTheme,
   ThemeProvider,
 } from "@material-ui/core/styles";
-import { Switch, Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import SideBar from "./components/SideBar/SideBar";
 import LoginPage from "./components/Login/LoginPage";
