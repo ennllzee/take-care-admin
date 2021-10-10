@@ -321,11 +321,8 @@ const useAdminApi = () => {
           Tag
           Details
         }
-        ReviewStat {
-          AvgScore
-          PricePerHour
-          Details
-        }
+        Rating
+        Tips
       }
     }
   `;
