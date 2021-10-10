@@ -136,11 +136,13 @@ function App() {
   const [open, setOpen] = useState<boolean>(false);
   const accessToken = localStorage.getItem("accessToken");
   const id = localStorage.getItem("_id");
-  const [login, setLogin] = useState<boolean>(accessToken !== null && id !== null);
+  const [login, setLogin] = useState<boolean>(
+    accessToken !== null && id !== null
+  );
 
   const loginHelp = useCallback(() => {
-    setLogin(true)
-  }, [setLogin])
+    setLogin(true);
+  }, [setLogin]);
 
   const handleDrawerOpen = () => {
     // const accessToken = localStorage.getItem("accessToken");
@@ -188,7 +190,13 @@ function App() {
             <div className={classes.drawerHeader} />
 
             <Switch>
-              <Route exact path="/" component={() => <LoginPage setLogin={loginHelp} login={login}/>} />
+              <Route
+                exact
+                path="/"
+                component={() => (
+                  <LoginPage setLogin={loginHelp} login={login} />
+                )}
+              />
               <Route
                 exact
                 path={`/validate&=guide`}
