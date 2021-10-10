@@ -1,9 +1,13 @@
-FROM node:15.6-alpine
-WORKDIR .
-COPY package*.json ./
-COPY . .
-RUN npm install
-#RUN npm run build
-EXPOSE 3002
+FROM node:14.17.3-buster
 
-CMD [ "npm", "start" ]
+WORKDIR /admins
+
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+
+RUN npm install
+
+COPY . .
+
+CMD [ "npm","run","start" ]
+
