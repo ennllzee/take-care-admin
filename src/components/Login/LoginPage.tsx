@@ -72,8 +72,6 @@ function LoginPage({ setLogin, login }: LoginPageProps) {
 
   const { LOGIN } = useAdminApi();
 
-  const [errorAlert,setErrorAlert] = useState<boolean>(false)
-
   const { loading, error, data } = useQuery(LOGIN, {
     variables: { loginAdminToken: token },
     fetchPolicy: "network-only",
@@ -92,7 +90,6 @@ function LoginPage({ setLogin, login }: LoginPageProps) {
     }
     if (error) {
       console.log(error.graphQLErrors)
-      setErrorAlert(true)
     };
   }, [loading, res, token, error, data, setLogin]);
 
@@ -175,13 +172,6 @@ function LoginPage({ setLogin, login }: LoginPageProps) {
         alert={alert}
         title="ลงชื่อไม่สำเร็จ"
         text="ไม่พบบัญชีนี้ในระบบ Admin"
-        buttonText="ปิด"
-      />
-      <Alert
-        closeAlert={() => setErrorAlert(false)}
-        alert={errorAlert}
-        title="ผิดพลาด"
-        text="กรุณาลองใหม่อีกครั้ง"
         buttonText="ปิด"
       />
     </Grid>
