@@ -167,8 +167,8 @@ const useAdminApi = () => {
   `;
 
   const VALIDATION_GUIDE = gql`
-    mutation Mutation($validateguideId: ID!, $validateguideApprove: Boolean!) {
-      validateguide(_id: $validateguideId, approve: $validateguideApprove) {
+    mutation Mutation($id: ID!, $approve: Boolean!, $text: String) {
+      validateguide(_id: $id, approve: $approve, text: $text) {
         _id
         FirstName
         LastName

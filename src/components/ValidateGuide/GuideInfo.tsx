@@ -134,9 +134,10 @@ function GuideInfo({
   const submit = async () => {
     await responseValidation({
       variables: {
-        validateguideId: guide._id,
-        validateguideApprove: true,
-      },
+        id: guide._id,
+        approve: true,
+        text
+      }
     });
 
     if (mutationError) {
@@ -152,8 +153,9 @@ function GuideInfo({
   const deny = async () => {
     await responseValidation({
       variables: {
-        validateguideId: guide._id,
-        validateguideApprove: false,
+        id: guide._id,
+        approve: false,
+        text
       },
     });
 
