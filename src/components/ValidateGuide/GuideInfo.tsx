@@ -49,6 +49,7 @@ interface GuideInfoProps {
   setAlert: any;
   setDenyAlert: any;
   guide: Guide;
+  refresh: any
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -109,6 +110,7 @@ function GuideInfo({
   setAlert,
   setDenyAlert,
   guide,
+  refresh
 }: GuideInfoProps) {
   const classes = useStyles();
 
@@ -143,6 +145,7 @@ function GuideInfo({
       setFailed(true);
     } else {
       setAlert(true);
+      refresh()
       setOpen(false);
     }
   };
@@ -161,6 +164,7 @@ function GuideInfo({
       setFailed(true);
     } else {
       setDenyAlert(true);
+      refresh()
       setOpen(false);
     }
   };

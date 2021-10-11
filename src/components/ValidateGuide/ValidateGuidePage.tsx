@@ -68,7 +68,7 @@ function ValidateGuidePage() {
 
   const { GET_NONVALIDATED } = useAdminApi();
 
-  const { loading, error, data } = useQuery(GET_NONVALIDATED, {
+  const { loading, error, data, refetch } = useQuery(GET_NONVALIDATED, {
     pollInterval: 60000,
   });
 
@@ -167,6 +167,7 @@ function ValidateGuidePage() {
                           guide={g}
                           setAlert={setAlert}
                           setDenyAlert={setDenyAlert}
+                          refresh={() => refetch()}
                         />
                       );
                     } else {

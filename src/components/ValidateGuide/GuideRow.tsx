@@ -18,6 +18,7 @@ interface GuideRowProps {
   guide: Guide;
   setAlert: any
   setDenyAlert: any
+  refresh: any
 }
 
 const StyledTableRow = withStyles((theme: Theme) =>
@@ -39,7 +40,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
   })
 )(TableCell);
 
-function GuideRow({ key, guide, setAlert, setDenyAlert }: GuideRowProps) {
+function GuideRow({ key, guide, setAlert, setDenyAlert, refresh }: GuideRowProps) {
 
   const [open, setOpen] = useState<boolean>(false)
 
@@ -75,7 +76,7 @@ function GuideRow({ key, guide, setAlert, setDenyAlert }: GuideRowProps) {
           </Grid>
         </Button>
       </StyledTableCell>
-      <GuideInfo open={open} setOpen={setOpen} setAlert={setAlert} setDenyAlert={setDenyAlert} guide={guide}/>
+      <GuideInfo open={open} setOpen={setOpen} setAlert={setAlert} setDenyAlert={setDenyAlert} guide={guide} refresh={() => refresh()}/>
     </StyledTableRow>
   );
 }
