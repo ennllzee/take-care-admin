@@ -10,7 +10,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { BatchHttpLink } from "@apollo/client/link/batch-http";
 
 const link = new BatchHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "http://take-care-api.eastus.azurecontainer.io:4000/graphql",
   batchMax: 5, // No more than 5 operations per batch
   batchInterval: 20, // Wait no more than 20ms after first batched operation
 });
