@@ -42,7 +42,7 @@ function NavBar({ open, classes, handleDrawerOpen, login }: IOpen) {
             </IconButton>
           )}
           <Avatar
-            src="/logo.png"
+            src={`https://bn1305files.storage.live.com/y4m-VdmknM_pfPpiJERPIxlLWj2FpheMGzFF9YkvkMvoXUGDoa_GRUjjxP1JMUtB74zJzZp7BNR1038nmT8lQLMJzDaOQOBBFAl76hWq25RWFC3ml12RuYi3y-Je95YLiiaunBh8mBkWMnOy2mAlge6n5KGjIXJM0cXp6L8btV2YfaFzfPkBN6d8_D_hV9hhKG_?width=1080&height=1080&cropmode=none`}
             className={clsx(classes.large, open && classes.hide)}
           />
           <Typography variant="h4" noWrap>
