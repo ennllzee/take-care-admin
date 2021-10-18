@@ -271,7 +271,9 @@ function GuideInfo({
                         </Typography>
                       </Grid>
                       <Grid item xs={8}>
+                      {guide.IdCard !== undefined && 
                         <Typography variant="h6">
+                          
                           {guide.IdCard[0]}-{guide.IdCard[1]}
                           {guide.IdCard[2]}
                           {guide.IdCard[3]}
@@ -281,7 +283,9 @@ function GuideInfo({
                           {guide.IdCard[8]}
                           {guide.IdCard[9]}-{guide.IdCard[10]}
                           {guide.IdCard[11]}-{guide.IdCard[12]}
+
                         </Typography>
+                      }
                       </Grid>
                       <Grid item xs={3}>
                         <Typography variant="h6" align="right">
@@ -340,7 +344,7 @@ function GuideInfo({
                   </Grid>
                   <Grid item xs={8} md={8} lg={8}>
                     <Typography variant="h6">
-                      {guide.Education.Degree}
+                      {guide?.Education?.Degree}
                     </Typography>
                   </Grid>
                   <Grid item xs={3} md={3} lg={3}>
@@ -350,7 +354,7 @@ function GuideInfo({
                   </Grid>
                   <Grid item xs={8} md={8} lg={8}>
                     <Typography variant="h6">
-                      {guide.Education.Acadamy}
+                      {guide?.Education?.Acadamy}
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12} style={{ padding: "1%" }}>
@@ -394,11 +398,11 @@ function GuideInfo({
                   </Grid>
                   <Grid item xs={12} md={12} lg={7}>
                     <Typography variant="h6" align="center">
-                      {guide.WorkExp.length === 0 && "ไม่มีประวัติการทำงาน"}
+                      {guide?.WorkExp?.length === 0 && "ไม่มีประวัติการทำงาน"}
                     </Typography>
                   </Grid>
                   <Grid xs={12} md={12} lg={12}>
-                    {guide.WorkExp.length !== 0 && (
+                    {guide?.WorkExp?.length !== 0 && (
                       <>
                         <TableContainer className={classes.table_contianer}>
                           <Table>
@@ -414,7 +418,7 @@ function GuideInfo({
                             </TableHead>
 
                             <TableBody className={classes.tbody}>
-                              {guide.WorkExp.map((w, k) => {
+                              {guide?.WorkExp?.map((w, k) => {
                                 return (
                                   <WorkRow
                                     key={k}
@@ -431,7 +435,7 @@ function GuideInfo({
                   </Grid>
                 </Grid>
               </Grid>
-              {guide.LangSkill.length === 0 && (
+              {guide?.LangSkill?.length === 0 && (
                 <Grid xs={12} md={12} lg={12} className={classes.divide}>
                   <Grid
                     container
@@ -446,7 +450,7 @@ function GuideInfo({
                       </Typography>
                     </Grid>
                     <Grid xs={12} md={12} lg={12}>
-                      {guide.LangSkill.length !== 0 && (
+                      {guide?.LangSkill?.length !== 0 && (
                         <>
                           <TableContainer className={classes.table_contianer}>
                             <Table>
@@ -464,7 +468,7 @@ function GuideInfo({
                               </TableHead>
 
                               <TableBody className={classes.tbody}>
-                                {guide.LangSkill.map((w, k) => {
+                                {guide?.LangSkill?.map((w, k) => {
                                   return (
                                     <LangRow
                                       key={k}
@@ -533,17 +537,17 @@ function GuideInfo({
                       ? guide.FaceWithIdCard === null
                         ? undefined
                         : guide.FaceWithIdCard.mimetype
-                      : guide.Education.Certificate === null
+                      : guide?.Education?.Certificate === null
                       ? undefined
-                      : guide.Education.Certificate.mimetype
+                      : guide?.Education?.Certificate.mimetype
                   };base64,${
                     openId
                       ? guide.FaceWithIdCard === null
                         ? undefined
                         : guide.FaceWithIdCard.data
-                      : guide.Education.Certificate === null
+                      : guide?.Education?.Certificate === null
                       ? undefined
-                      : guide.Education.Certificate.data
+                      : guide?.Education?.Certificate.data
                   }`}
                   // aspectRatio={3 / 3}
                   // cover={true}

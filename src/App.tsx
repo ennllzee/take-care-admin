@@ -16,6 +16,7 @@ import ValidateGuidePage from "./components/ValidateGuide/ValidateGuidePage";
 import DashboardPage from "./components/Dashboard/DashboardPage";
 import CustomerDataPage from "./components/CustomerData/CustomerDataPage";
 import GuideDataPage from "./components/GuideData/GuideDataPage";
+import ReportPage from "./components/Report/ReportPage";
 
 const drawerWidth = 240;
 
@@ -205,6 +206,7 @@ function App() {
               <Route exact path="/dashboard" component={DashboardPage} />
               <Route exact path="/customer" component={CustomerDataPage} />
               <Route exact path="/guide" component={GuideDataPage} />
+              <Route exact path="/report" component={ReportPage} />
             </Switch>
           </main>
         </div>

@@ -19,7 +19,7 @@ import { Avatar } from "@material-ui/core";
 import { useState } from "react";
 import Submit from "../Submit/Submit";
 import { useGoogleLogout } from "react-google-login";
-import { Person, PersonPin } from "@material-ui/icons";
+import { Person, PersonPin, ReportProblem } from "@material-ui/icons";
 
 interface IOpen {
   open: boolean;
@@ -136,14 +136,14 @@ function SideBar({ open, classes, handleDrawerClose, setLogin }: IOpen) {
             </ListItem>
           </Link>
 
-          {/* <Link to="/manageEmp" style={{ textDecoration: "none", color: "black" }}>
+          <Link to="/report" style={{ textDecoration: "none", color: "black" }}>
             <ListItem button>
               <ListItemIcon>
-                <PersonIcon />
+                <ReportProblem />
               </ListItemIcon>
-              <ListItemText primary="Employees" />
+              <ListItemText primary="รายงานปัญหา" />
             </ListItem>
-          </Link> */}
+          </Link>
 
           <ListItem button onClick={displayConfirmDialog}>
             <ListItemIcon>
