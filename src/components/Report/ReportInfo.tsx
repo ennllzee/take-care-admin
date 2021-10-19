@@ -186,6 +186,12 @@ function ReportInfo({ open, setOpen, report, setAlert }: ReportInfoProps) {
               <Grid item xs={12}>
                 <Typography variant="h4">ตอบกลับ</Typography>
               </Grid>
+              <Grid item xs={2}>
+                <Typography variant="h6">อีเมล์ตอบกลับ:</Typography>
+              </Grid>
+              <Grid item xs={10}>
+                <Typography variant="h6">{report.Reporter.Email}</Typography>
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   id="input-with-icon-grid"
