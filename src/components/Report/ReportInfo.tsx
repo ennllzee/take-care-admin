@@ -17,12 +17,14 @@ import convertToThaiDate from "../../hooks/convertToThaiDate";
 import { useState } from "react";
 import Submit from "../Submit/Submit";
 import Alert from "../Alert/Alert";
+import { useQuery, useMutation } from "@apollo/client";
+import useAdminApi from "../../hooks/adminhooks";
 
 interface ReportInfoProps {
   open: boolean;
   setOpen: any;
   report: Report;
-  setAlert: any
+  setAlert: any;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -69,13 +71,37 @@ function ReportInfo({ open, setOpen, report, setAlert }: ReportInfoProps) {
   const [dataAlert, setDataAlert] = useState<boolean>(false);
   const [failed, setFailed] = useState<boolean>(false);
 
+  const id = localStorage.getItem("_id");
+
+  const { RESPONSE_REPORT, GET_REQUEST_REPORT } = useAdminApi();
+
+  const [reponseReport] = useMutation(RESPONSE_REPORT, {
+    onCompleted: (data) => {
+      console.log(data);
+      setAlert(true); //if success
+      setOpen(false);
+    },
+    onError: (data) => {
+      console.log(data);
+      setFailed(true); //if error
+    },
+  });
+
   const submit = () => {
     setConfirm(false);
     if (resText !== "") {
-      //wait for response
-      setFailed(true) //if error
-      setAlert(true) //if success
-      setOpen(false)
+      reponseReport({
+        variables: {
+          id: report._id,
+          responseText: resText,
+          responseByAdmin: id,
+        },
+        refetchQueries: [
+          {
+            query: GET_REQUEST_REPORT
+          },
+        ],
+      });
     } else {
       setDataAlert(true);
     }

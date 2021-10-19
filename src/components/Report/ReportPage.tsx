@@ -69,24 +69,18 @@ function ReportPage() {
     }
   }, [accessToken, id]);
 
-  // const { GET_ALLCUSTOMER } = useAdminApi();
+  const { GET_REQUEST_REPORT } = useAdminApi();
 
-  // const [search, setSearch] = useState<string>("");
+  const { loading, error, data } = useQuery(GET_REQUEST_REPORT, {
+    pollInterval: 60000,
+  });
 
-  // const { loading, error, data } = useQuery(GET_ALLCUSTOMER, {
-  //   pollInterval: 60000,
-  // });
-
-  // const [customers, setCustomers] = useState<Customer[]>(
-  //   data !== undefined ? data.getAllCustomer : []
-  // );
-
-  // useEffect(() => {
-  //   if (!loading && data) {
-  //     setCustomers(data.getAllCustomer);
-  //   }
-  //   if (error) console.log(error.graphQLErrors);
-  // }, [loading, data, error]);
+  useEffect(() => {
+    if (!loading && data) {
+      setReports(data.getRequestReport);
+    }
+    if (error) console.log(error.graphQLErrors);
+  }, [loading, data, error]);
 
   const [reports, setReports] = useState<Report[]>([]);
   const [filter, setFilter] = useState<string>("all");
@@ -164,11 +158,10 @@ function ReportPage() {
                     <Typography align="right" color="textSecondary">
                       จำนวนข้อมูลทั้งหมด:{" "}
                       {
-                        reports.filter(
-                          (e) =>
-                            (e.Reporter.Role === filter || filter === "all") &&
-                            e.UpdatedAt !== null
-                        ).length
+                        reports.filter((e) => {
+                          console.log(e)  
+                          return (e.Reporter.Role === filter || filter === "all") && e.UpdatedAt !== null
+                        }).length
                       }
                     </Typography>
                   </Grid>

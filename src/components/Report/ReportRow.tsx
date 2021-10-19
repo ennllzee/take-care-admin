@@ -64,8 +64,8 @@ function ReportRow({ key, report, setAlert }: ReportRowProps) {
       <StyledTableCell align="center">
         <Chip
           size="small"
-          label= {report.Reporter.Role === "Customer" ? "ลูกค้า" : "ไกด์"}
-          className={report.Reporter.Role === "Customer" ? classes.customer : classes.guide}
+          label= {report.Reporter.Role === "customer" ? "ลูกค้า" : "ไกด์"}
+          className={report.Reporter.Role === "customer" ? classes.customer : classes.guide}
         />
       </StyledTableCell>
       <StyledTableCell align="center">

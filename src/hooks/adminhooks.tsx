@@ -342,15 +342,16 @@ const useAdminApi = () => {
             FirstName
             LastName
             Email
+            Role
           }
           ... on Guide {
             _id
             FirstName
             LastName
             Email
+            Role
           }
         }
-        Role
         ResponseText
         ResponseByAdmin {
           _id
@@ -393,7 +394,6 @@ const useAdminApi = () => {
             Role
           }
         }
-        Role
         ResponseText
         ResponseByAdmin {
           _id
