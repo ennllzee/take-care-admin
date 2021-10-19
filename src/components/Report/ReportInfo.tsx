@@ -22,7 +22,7 @@ interface ReportInfoProps {
   open: boolean;
   setOpen: any;
   report: Report;
-  setAlert: any
+  setAlert: any;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -73,9 +73,9 @@ function ReportInfo({ open, setOpen, report, setAlert }: ReportInfoProps) {
     setConfirm(false);
     if (resText !== "") {
       //wait for response
-      setFailed(true) //if error
-      setAlert(true) //if success
-      setOpen(false)
+      setFailed(true); //if error
+      setAlert(true); //if success
+      setOpen(false);
     } else {
       setDataAlert(true);
     }
@@ -159,6 +159,12 @@ function ReportInfo({ open, setOpen, report, setAlert }: ReportInfoProps) {
             >
               <Grid item xs={12}>
                 <Typography variant="h4">ตอบกลับ</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography variant="h6">อีเมล์ตอบกลับ:</Typography>
+              </Grid>
+              <Grid item xs={10}>
+                <Typography variant="h6">{report.Reporter.Email}</Typography>
               </Grid>
               <Grid item xs={12}>
                 <TextField
