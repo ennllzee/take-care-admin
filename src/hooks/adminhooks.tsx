@@ -330,6 +330,79 @@ const useAdminApi = () => {
     }
   `;
 
+  const GET_REQUEST_REPORT = gql`
+    query GET_REQUEST_REPORT {
+      getRequestReport {
+        _id
+        Title
+        Description
+        Reporter {
+          ... on Customer {
+            _id
+            FirstName
+            LastName
+            Email
+          }
+          ... on Guide {
+            _id
+            FirstName
+            LastName
+            Email
+          }
+        }
+        Role
+        ResponseText
+        ResponseByAdmin {
+          _id
+          FirstName
+          LastName
+          Email
+          Role
+        }
+        CreatedAt
+        UpdatedAt
+      }
+    }
+  `;
+
+  const RESPONSE_REPORT = gql`
+    mutation ResponseBackMutation(
+      $id: ID!
+      $responseText: String!
+      $responseByAdmin: ID!
+    ) {
+      responseBack(
+        _id: $id
+        ResponseText: $responseText
+        ResponseByAdmin: $responseByAdmin
+      ) {
+        _id
+        Title
+        Description
+        Reporter {
+          ... on Customer {
+            _id
+            FirstName
+            LastName
+            Role
+          }
+          ... on Guide {
+            _id
+            FirstName
+            LastName
+            Role
+          }
+        }
+        Role
+        ResponseText
+        ResponseByAdmin {
+          _id
+        }
+        CreatedAt
+        UpdatedAt
+      }
+    }
+  `;
   return {
     GET_SINGLE_ADMIN,
     SIGNUP_ADMIN,
@@ -340,6 +413,8 @@ const useAdminApi = () => {
     GET_NONVALIDATED,
     GET_ALLCUSTOMER,
     GET_ALLGUIDE,
+    GET_REQUEST_REPORT,
+    RESPONSE_REPORT,
   };
 };
 
