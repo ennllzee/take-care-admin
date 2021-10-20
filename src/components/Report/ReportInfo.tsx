@@ -17,7 +17,7 @@ import convertToThaiDate from "../../hooks/convertToThaiDate";
 import { useState } from "react";
 import Submit from "../Submit/Submit";
 import Alert from "../Alert/Alert";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import useAdminApi from "../../hooks/adminhooks";
 
 interface ReportInfoProps {
@@ -98,7 +98,7 @@ function ReportInfo({ open, setOpen, report, setAlert }: ReportInfoProps) {
         },
         refetchQueries: [
           {
-            query: GET_REQUEST_REPORT
+            query: GET_REQUEST_REPORT,
           },
         ],
       });
