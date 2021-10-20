@@ -98,7 +98,7 @@ function ReportInfo({ open, setOpen, report, setAlert }: ReportInfoProps) {
         },
         refetchQueries: [
           {
-            query: GET_REQUEST_REPORT
+            query: GET_REQUEST_REPORT,
           },
         ],
       });
