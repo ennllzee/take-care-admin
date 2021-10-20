@@ -134,7 +134,7 @@ function ReportPage() {
                   </Grid>
                   <Grid item xs={3} md={3} lg={3}>
                     <FormControlLabel
-                      value="Customer"
+                      value="customer"
                       control={<Radio style={{ color: "black" }} />}
                       label={
                         <>
@@ -145,7 +145,7 @@ function ReportPage() {
                   </Grid>
                   <Grid item xs={3} md={3} lg={3}>
                     <FormControlLabel
-                      value="Guide"
+                      value="guide"
                       control={<Radio style={{ color: "black" }} />}
                       label={
                         <>
@@ -159,7 +159,6 @@ function ReportPage() {
                       จำนวนข้อมูลทั้งหมด:{" "}
                       {
                         reports.filter((e) => {
-                          console.log(e)  
                           return (e.Reporter.Role === filter || filter === "all") && e.UpdatedAt !== null
                         }).length
                       }
@@ -213,7 +212,7 @@ function ReportPage() {
               text="ตอบกลับสำเร็จ"
               buttonText="ปิด"
             />
-            {/* {loading && (
+            {loading && (
               <Grid
                 container
                 direction="row"
@@ -224,7 +223,7 @@ function ReportPage() {
                   <LinearProgress />
                 </Grid>
               </Grid>
-            )} */}
+            )}
           </TableContainer>
         </Grid>
       </Container>

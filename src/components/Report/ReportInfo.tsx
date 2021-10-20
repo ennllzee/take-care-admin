@@ -17,7 +17,7 @@ import convertToThaiDate from "../../hooks/convertToThaiDate";
 import { useState } from "react";
 import Submit from "../Submit/Submit";
 import Alert from "../Alert/Alert";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import useAdminApi from "../../hooks/adminhooks";
 
 interface ReportInfoProps {
@@ -126,7 +126,7 @@ function ReportInfo({ open, setOpen, report, setAlert }: ReportInfoProps) {
           buttonText="ปิด"
         />
         <Grid container direction="row" justify="center" alignItems="center">
-          <Grid xs={12} md={10} lg={6} className={classes.divide}>
+          <Grid item xs={12} md={10} lg={8} className={classes.divide}>
             <Paper variant="outlined">
               <Grid
                 container
@@ -149,10 +149,10 @@ function ReportInfo({ open, setOpen, report, setAlert }: ReportInfoProps) {
                     <Chip
                       size="small"
                       label={
-                        report.Reporter.Role === "Customer" ? "ลูกค้า" : "ไกด์"
+                        report.Reporter.Role === "customer" ? "ลูกค้า" : "ไกด์"
                       }
                       className={
-                        report.Reporter.Role === "Customer"
+                        report.Reporter.Role === "customer"
                           ? classes.customer
                           : classes.guide
                       }
@@ -167,16 +167,16 @@ function ReportInfo({ open, setOpen, report, setAlert }: ReportInfoProps) {
                     {convertToThaiDate(new Date(report.CreatedAt))}
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={2}>
                   <Typography variant="h6">รายละเอียด:</Typography>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={10}>
                   <Typography variant="h6">{report.Description}</Typography>
                 </Grid>
               </Grid>
             </Paper>
           </Grid>
-          <Grid xs={12} md={10} lg={6} className={classes.divide}>
+          <Grid item xs={12} md={10} lg={8} className={classes.divide}>
             <Grid
               container
               alignItems="center"
