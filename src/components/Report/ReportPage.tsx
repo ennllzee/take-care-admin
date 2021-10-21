@@ -4,7 +4,7 @@ import {
   FormControl,
   FormControlLabel,
   Grid,
-  // LinearProgress,
+  LinearProgress,
   makeStyles,
   Radio,
   RadioGroup,
